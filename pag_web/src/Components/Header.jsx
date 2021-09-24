@@ -1,11 +1,11 @@
-import logo from 'media/logo_fcm.png'
-
+import logo from '../media/logo_fcm.png'
+import '../styles/styles.scss'
 const Header = () => {
     return (
         <header>
-            <ul>
+            <ul className="navbar">
                 <li>
-                    <img src={logo} alt='image' />
+                    <img src={logo} alt='Logo FCM' className="logo" />
                 </li>
 
                 <li>
@@ -14,5 +14,7 @@ const Header = () => {
 
             </ul>
         </header>
-    )
-}
+    );
+};
+
+export default Header;
