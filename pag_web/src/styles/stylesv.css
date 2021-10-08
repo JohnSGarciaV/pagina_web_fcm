@@ -1,0 +1,24 @@
+.grupo{
+    padding: 1rem 20rem;
+    overflow: hidden;
+}
+
+.formulario{
+    margin: 10rem;
+    align-content: center;
+    align-items: center;
+}
+
+.titulo{
+    padding: 10px 30px;
+    align-items: initial;
+    align-content: initial;
+}
+
+.titulo > button{
+   width: 100%;
+   background-color: rgb(99, 202, 236);
+   color: black;
+   text-align: initial;
+ 
+}

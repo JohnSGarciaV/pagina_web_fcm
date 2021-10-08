@@ -5,11 +5,13 @@ import React from 'react';
 
 const Layout =({children}) =>{
     return(
-        <div>
+        <div className="containerMain">
             <Header/>
             <Sidebar/>
-            <main>{children}</main>
-            <Footer/>
+            <main >
+                {children}
+            </main>
+           
             
         </div>
     );

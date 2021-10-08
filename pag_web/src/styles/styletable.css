@@ -1,0 +1,19 @@
+table thead {
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #006699;
+}
+  
+table tbody tr th{
+    text-align: left;
+    vertical-align: middle;
+}
+  
+table tbody tr th div{
+    display: inline-flex;
+    column-gap: 20px;
+    align-content: center;
+    padding: 5px;
+}
+  
