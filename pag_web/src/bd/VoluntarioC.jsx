@@ -23,7 +23,6 @@ class VoluntarioBD extends Component {
             try {
                 const todos = await query.find();
                 console.log(JSON.stringify(todos));
-                console.log(todos[0].get('nombre'));
                 this.setState({ datos: todos });
             } catch (error) {
                 console.error(error)
@@ -66,7 +65,7 @@ class VoluntarioBD extends Component {
                                     <td>{elemento.get('rango')}</td>
                                     <td>{elemento.get('elegalizacion')} </td>
                                     <td>
-                                        <Link to={`/InformacionVoluntario/${elemento.get('numerodocumento')}`}>
+                                        <Link to={`/InformacionVoluntario/${elemento.get('numerodocumento     ')}`}>
                                             
                                         <button type="button" class="btn btn-primary"> Ver Informacion </button> </Link>
                                         <button type="button" class="btn btn-danger" > Eliminar</button>

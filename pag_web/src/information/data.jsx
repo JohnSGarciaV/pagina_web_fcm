@@ -215,11 +215,11 @@ export const Convenio=[
 ]
 
 export const Tipo=[
-    {tipo:"Volunario"},
+    {tipo:"Voluntario"},
     {tipo: "Practicante"}
 ]
 
-export const Modalida=[
+export const Modalidad=[
     {tipo:"Virtual"},
     {tipo:"Mixta"},
     {tipo:"Presencial"}

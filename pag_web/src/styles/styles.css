@@ -22,7 +22,6 @@ ul{
 .containerMain{
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 }
 
 .navbar{

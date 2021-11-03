@@ -104,6 +104,7 @@ class CrearVoluntario extends Component {
     render() {
         return (
             <div className="fomularioCreacion">
+                EDITAR VOLUNTARIO
                 <Form>
                     <div className="titulo">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#infogeneral" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">

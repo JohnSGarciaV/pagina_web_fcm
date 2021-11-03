@@ -17,8 +17,7 @@ class InformacionVoluntario extends Component {
 
     render() {
         return (
-            <div>
-                
+            <div style={{height:"90vh", overflowY:"scroll"}}>
                 <div style={{ padding: 20 }}>
                     <h5>INFORMACIÓN GENERAL</h5>
                     <TablaInfoGeneralF />
@@ -48,9 +47,6 @@ class InformacionVoluntario extends Component {
                     <h5>Actividades de Formación en las que ha participado</h5>
                     <TablaAFormacion />
                 </div>
-
-
-
             </div>
         );
     }

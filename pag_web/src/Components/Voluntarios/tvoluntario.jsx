@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Table, Container } from 'react-bootstrap';
 import '../../styles/styletable.css'
-import PDFView from '../viewDoc';
+import ViewPDF from '../viewPDF';
 
 const data = [{ nactividad: " Construccion", tipo: "Misional", rol: "Lider de cuadrilla", fecha: "12/01/202", tiempo: "12" }]
 const datas = [{ nactividadf: " Construccion", tipof: "Acciones de aspiracion", fechaf: "12/01/202", tiempof: "12" }]
@@ -187,11 +187,14 @@ class TablaActividades extends Component {
 
 
 
-class TablaDocumentos extends Component {
-       render() {
+const TablaDocumentos = () => {
+    const [show, setShow]= useState(false);
+    const [info, setInfo] = useState({nombre:"Cualquiera", link:"http://www.africau.edu/images/default/sample.pdf"});
+
         return (
             <Container>
                 <Table hover size="sm" bordered="true">
+                    <ViewPDF show={show} setShow={setShow} info={info} />
                     <thead>
                         <tr>
                             <th>DOCUMENTO DE IDENTIDAD</th>
@@ -208,28 +211,28 @@ class TablaDocumentos extends Component {
                         {
                             <tr>
                                 <td>
-                                    <button type="button" class="btn btn-success" onClick={<PDFView></PDFView>}  >Ver</button>
+                                    <button type="button" class="btn btn-success" onClick={() => { setInfo({nombre:"Documento de Identidad", link:"http://www.africau.edu/images/default/sample.pdf"}); setShow(true)}} >Ver</button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-success">Ver</button>
+                                    <button type="button" class="btn btn-success"  onClick={() => { setInfo({nombre:"Seguridad Social", link:"http://www.africau.edu/images/default/sample.pdf"}); setShow(true)}}>Ver</button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-success">Ver</button>
+                                    <button type="button" class="btn btn-success"  onClick={() => { setInfo({nombre:"Pasaporte", link:"http://www.africau.edu/images/default/sample.pdf"}); setShow(true)}}>Ver</button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-success">Ver</button>
+                                    <button type="button" class="btn btn-success"  onClick={() => { setInfo({nombre:"Aseguramiento de Viaje", link:"http://www.africau.edu/images/default/sample.pdf"}); setShow(true)}}>Ver</button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-success">Ver</button>
+                                    <button type="button" class="btn btn-success"  onClick={() => { setInfo({nombre:"Hoja de Vida", link:"http://www.africau.edu/images/default/sample.pdf"}); setShow(true)}}>Ver</button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-success">Ver</button>
+                                    <button type="button" class="btn btn-success"  onClick={() => { setInfo({nombre:"Carta de Motivacion", link:"http://www.africau.edu/images/default/sample.pdf"}); setShow(true)}}>Ver</button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-success">Ver</button>
+                                    <button type="button" class="btn btn-success"  onClick={() => { setInfo({nombre:"Declaracion de Voluntades", link:"http://www.africau.edu/images/default/sample.pdf"}); setShow(true)}}>Ver</button>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-success">Ver</button>
+                                    <button type="button" class="btn btn-success"  onClick={() => { setInfo({nombre:"Uso de Imagen", link:"http://www.africau.edu/images/default/sample.pdf"}); setShow(true)}}>Ver</button>
                                 </td>
                             </tr>
                         }
@@ -238,7 +241,6 @@ class TablaDocumentos extends Component {
                 </Table>
             </Container>
         );
-    }
 }
 
 
