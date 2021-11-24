@@ -2,7 +2,7 @@
 import './App.css';
 import Layout from './layouts/Layout';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Voluntarios from './pages/Voluntarios';
+import Voluntarios from './pages/voluntarios';
 import InformacionVoluntario from './pages/InformacionVoluntario';
 import CrearVoluntario from './pages/crearVoluntario';
 import EditarVoluntario from './pages/editarVoluntario';
