@@ -1,0 +1,48 @@
+.sidebar{
+min-width: 30vh;
+max-width: 30vh;
+min-height: 90vh;
+color: white;
+padding: 0px;
+background-color: rgb(15, 27, 80);
+position: absolute;
+}
+
+
+.listVoluntarios{
+    background-color: rgb(15, 27, 80);
+}
+
+.lista-desplegable{
+    color: white;
+    font-family: 'Multi', sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+
+
+li{
+    color: white;
+    font-family: 'Multi', sans-serif;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 1rem 0.2rem;
+    text-decoration: none;
+}
+
+ul{
+  margin: 0px;
+  padding: 0px;
+  text-align: start;
+  list-style: none;
+}
+
+button{
+    color: red;
+}
+
+div li a{
+    text-decoration: none;
+    color: white;
+}
