@@ -10,14 +10,9 @@ import { Tipo } from '../information/data';
 import { Modalidad } from '../information/data';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import Parse from 'parse';
 
-
-class CrearVoluntario extends Component {
+class EditarVoluntario extends Component {
     constructor(props) {
-        Parse.initialize('GwQYTeA6Mt1w7yPrFovVd5yAKIZ0evxdxvIE2lBr',
-            'hxnOFOFSN0Kjvk0vEqNnqeE4xJkRkac6rcuwiNSD');
-        Parse.serverURL = 'https://parseapi.back4app.com';
         super(props);
         this.state = {
             nombre: "",
@@ -46,35 +41,7 @@ class CrearVoluntario extends Component {
     }
 
     crearVoluntarioBD = async () => {
-        const Documentos = new Parse.Object('Documentos');
-        Documentos.set('didentidad', this.state.docidentidad);
-        Documentos.set('ssocial', this.state.docssocial);
-        Documentos.set('pasaporte', this.state.docpasaporte);
-        Documentos.set('aviaje', this.state.docsviaje);
-        Documentos.set('hvida', this.state.dochvida);
-        Documentos.set('cmotivacion', this.state.doccmotivacion);
-        Documentos.set('dvoluntades', this.state.docdvoluntades);
-        Documentos.set('uimagen', this.state.docuimagen);
-        const InfoVoluntariado = new Parse.Object('InfoVoluntariado');
-        InfoVoluntariado.set('convenio', this.state.convenio);
-        InfoVoluntariado.set('tipo', this.state.tipo);
-        InfoVoluntariado.set('modalidad', this.state.modalida);
-        InfoVoluntariado.set('fechainicio',new Date(Date.parse(this.state.finicio)));
-        InfoVoluntariado.set('fechafinal', new Date(Date.parse(this.state.ffinal)));
-        InfoVoluntariado.set('estado', this.state.convenio);
-        const Voluntario = new Parse.Object('Voluntario');
         try {
-            Voluntario.set('nombre', this.state.nombre);
-            Voluntario.set('nacionalidad', this.state.nacionalidad);
-            Voluntario.set('tipodocumento', this.state.tdocumento);
-            Voluntario.set('numerodocumento', this.state.ndoc);
-            Voluntario.set('celular', Number(this.state.ncelular));
-            Voluntario.set('rango', this.state.rango);
-            Voluntario.set('correo', this.state.correo);
-            Voluntario.set('elegalizacion', this.state.elegalizacion);
-            Voluntario.set('documentos', Documentos);
-            Voluntario.set('infovoluntariado', InfoVoluntariado);
-            await Voluntario.save();
             console.log("se pudo crear");
         } catch (error) {
             console.log(error);
@@ -104,7 +71,7 @@ class CrearVoluntario extends Component {
     render() {
         return (
             <div className="fomularioCreacion">
-                EDITAR VOLUNTARIO
+               <p> EDITAR VOLUNTARIO</p>
                 <Form>
                     <div className="titulo">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#infogeneral" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -305,4 +272,4 @@ class CrearVoluntario extends Component {
     }
 }
 
-export default CrearVoluntario;
+export default EditarVoluntario;

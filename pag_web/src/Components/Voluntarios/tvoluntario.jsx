@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component, useState } from 'react';
 import { Table, Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import '../../styles/styletable.css'
 import ViewPDF from '../viewPDF';
 
@@ -46,7 +47,7 @@ class TablaInfoGeneralF extends Component {
                                     <td>{elemento.rango}</td>
                                     <td>{elemento.elegalizacion}  </td>
                                     <td>
-                                        <button type="button" class="btn btn-primary"> Editar </button>
+                                        <Link to='/editarVoluntario'><button type="button" class="btn btn-primary"> Editar </button></Link>
                                     </td>
                                 </tr>
 

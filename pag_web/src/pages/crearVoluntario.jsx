@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/stylesv.css'
-import { Form, Col, Row } from 'react-bootstrap';
+import { Form, Col, Row, Modal, ModalTitle } from 'react-bootstrap';
 import { Convenio, paises } from '../information/data';
 import { tipoDocumento } from '../information/data';
 import { FiChevronDown } from "react-icons/fi"
@@ -10,16 +10,16 @@ import { Tipo } from '../information/data';
 import { Modalidad } from '../information/data';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import Parse from 'parse';
-
+import axios from 'axios';
 
 class CrearVoluntario extends Component {
+
     constructor(props) {
-        Parse.initialize('GwQYTeA6Mt1w7yPrFovVd5yAKIZ0evxdxvIE2lBr',
-            'hxnOFOFSN0Kjvk0vEqNnqeE4xJkRkac6rcuwiNSD');
-        Parse.serverURL = 'https://parseapi.back4app.com';
         super(props);
         this.state = {
+            mensaje: [],
+            titulo: "",
+            show: false,
             nombre: "",
             nacionalidad: "",
             tdocumento: "",
@@ -45,40 +45,35 @@ class CrearVoluntario extends Component {
         }
     }
 
+    cerrar = () => {
+      this.setState({show: false});
+
+    }
+
     crearVoluntarioBD = async () => {
-        const Documentos = new Parse.Object('Documentos');
-        Documentos.set('didentidad', this.state.docidentidad);
-        Documentos.set('ssocial', this.state.docssocial);
-        Documentos.set('pasaporte', this.state.docpasaporte);
-        Documentos.set('aviaje', this.state.docsviaje);
-        Documentos.set('hvida', this.state.dochvida);
-        Documentos.set('cmotivacion', this.state.doccmotivacion);
-        Documentos.set('dvoluntades', this.state.docdvoluntades);
-        Documentos.set('uimagen', this.state.docuimagen);
-        const InfoVoluntariado = new Parse.Object('InfoVoluntariado');
-        InfoVoluntariado.set('convenio', this.state.convenio);
-        InfoVoluntariado.set('tipo', this.state.tipo);
-        InfoVoluntariado.set('modalidad', this.state.modalida);
-        InfoVoluntariado.set('fechainicio',new Date(Date.parse(this.state.finicio)));
-        InfoVoluntariado.set('fechafinal', new Date(Date.parse(this.state.ffinal)));
-        InfoVoluntariado.set('estado', this.state.convenio);
-        const Voluntario = new Parse.Object('Voluntario');
+  
         try {
-            Voluntario.set('nombre', this.state.nombre);
-            Voluntario.set('nacionalidad', this.state.nacionalidad);
-            Voluntario.set('tipodocumento', this.state.tdocumento);
-            Voluntario.set('numerodocumento', this.state.ndoc);
-            Voluntario.set('celular', Number(this.state.ncelular));
-            Voluntario.set('rango', this.state.rango);
-            Voluntario.set('correo', this.state.correo);
-            Voluntario.set('elegalizacion', this.state.elegalizacion);
-            Voluntario.set('documentos', Documentos);
-            Voluntario.set('infovoluntariado', InfoVoluntariado);
-            await Voluntario.save();
-            console.log("se pudo crear");
+            const options= {
+                method: 'POST',
+                url: 'http://localhost:5100/voluntarios/new',
+                headers: { 'Content-Type': 'application/json' },
+                data: this.state,
+            };
+
+            await axios.request(options).then((response) => {
+                this.setState({titulo:"Exitosos"});
+                this.setState({mensaje: [{valor:"El voluntario fue creado de manera exitosa"}]});
+                this.setState({show: true});
+             }).catch(function (error){
+                this.setState({titulo:"Error"});
+                this.setState({mensaje: [{valor:error}]});
+                this.setState({show: true});
+             });
+
         } catch (error) {
             console.log(error);
         }
+
 
     }
 
@@ -86,9 +81,7 @@ class CrearVoluntario extends Component {
         console.log(this.state);
         if (this.state.nombre.length > 0 && this.state.nacionalidad.length > 0 && this.state.tdocumento.length > 0 &&
             this.state.ndoc.length > 0 && this.state.ncelular.length > 0 && this.state.correo.length > 0 && this.state.rango.length > 0 &&
-            this.state.elegalizacion.length > 0 && this.state.docidentidad != null && this.state.docssocial != null  &&
-            this.state.docpasaporte != null && this.state.docsviaje != null && this.state.dochvida != null &&
-            this.state.doccmotivacion != null && this.state.docdvoluntades != null && this.state.docuimagen != null &&
+            this.state.elegalizacion.length > 0 &&
             this.state.convenio.length > 0 && this.state.tipo.length > 0 && this.state.modalida.length > 0
         )
             return true
@@ -104,6 +97,23 @@ class CrearVoluntario extends Component {
     render() {
         return (
             <div className="fomularioCreacion">
+                  <div>
+                <Modal show={this.state.show} onHide={this.cerrar}>
+                    <Modal.Header>
+                        <ModalTitle>
+                         {this.state.titulo}
+                        </ModalTitle>
+                        <button type="button" class="btn btn-danger" onClick={this.cerrar}> Cerrar</button>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {   this.state.mensaje.map((elemento) =>
+                            <p>{elemento.valor}</p>
+
+                        )}
+                    </Modal.Body>
+                </Modal>
+            </div>
+
                 <Form>
                     <div className="titulo">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#infogeneral" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">

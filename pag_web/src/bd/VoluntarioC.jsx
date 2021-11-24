@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import Parse from 'parse';
 import { Link } from 'react-router-dom';
 import { Table, Container } from 'react-bootstrap';
-import '../styles/styletable.css'
+import '../styles/styletable.css';
+import axios from 'axios';
 
 class VoluntarioBD extends Component {
 
     constructor(props) {
-        Parse.initialize('GwQYTeA6Mt1w7yPrFovVd5yAKIZ0evxdxvIE2lBr',
-            'hxnOFOFSN0Kjvk0vEqNnqeE4xJkRkac6rcuwiNSD');
-        Parse.serverURL = 'https://parseapi.back4app.com';
         super(props);
         this.state = {
             datos: []
@@ -18,15 +15,16 @@ class VoluntarioBD extends Component {
 
     componentDidMount() {
         const readVoluntarios = async () => {
-            const query = new Parse.Query('Voluntario');
-
-            try {
-                const todos = await query.find();
-                console.log(JSON.stringify(todos));
-                this.setState({ datos: todos });
-            } catch (error) {
-                console.error(error)
-            }
+            const options = {
+                method: 'GET',
+                url: 'http://localhost:5100/voluntarios'
+              };
+        
+              await axios.request(options).then((response) => {
+                this.setState({ datos: response.data })
+              }).catch(function (error) {
+                console.error(error);
+              });
         };
         readVoluntarios();
     }
@@ -56,16 +54,16 @@ class VoluntarioBD extends Component {
                         {
                             this.state.datos.map((elemento) => (
                                 <tr>
-                                    <td>{elemento.get('nombre')}</td>
-                                    <td>{elemento.get('nacionalidad')}</td>
-                                    <td>{elemento.get('tipodocumento')}</td>
-                                    <td>{elemento.get('numerodocumento')}</td>
-                                    <td>{elemento.get('celular')}</td>
-                                    <td>{elemento.get('correo')}</td>
-                                    <td>{elemento.get('rango')}</td>
-                                    <td>{elemento.get('elegalizacion')} </td>
+                                    <td>{elemento.nombre}</td>
+                                    <td>{elemento.nacionalidad}</td>
+                                    <td>{elemento.tdocumento}</td>
+                                    <td>{elemento.ndoc}</td>
+                                    <td>{elemento.ncelular}</td>
+                                    <td>{elemento.correo}</td>
+                                    <td>{elemento.rango}</td>
+                                    <td>{elemento.elegalizacion} </td>
                                     <td>
-                                        <Link to={`/InformacionVoluntario/${elemento.get('numerodocumento     ')}`}>
+                                        <Link to={`/InformacionVoluntario/${elemento.ndoc}`}>
                                             
                                         <button type="button" class="btn btn-primary"> Ver Informacion </button> </Link>
                                         <button type="button" class="btn btn-danger" > Eliminar</button>

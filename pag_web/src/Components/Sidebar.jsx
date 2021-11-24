@@ -7,6 +7,7 @@ import { FiChevronDown } from "react-icons/fi"
 import { RiUserSettingsLine } from "react-icons/ri"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
+import { Link } from 'react-router-dom';
 
 
 const Sidebar = () => {
@@ -23,7 +24,7 @@ const Sidebar = () => {
                             <div class="list-group">
                                 <li><a href="/Voluntarios" class="d-block" className="sletras"> Lista de Voluntarios</a></li>
                                 <li><a href="/crearVoluntario" class="d-block" className="sletras"> Crear Voluntario</a></li>
-                                <li><a href="#" class="d-block" className="sletras"> Editar Voluntario</a></li>
+                                <li><a href="/editarVoluntario" class="d-block" className="sletras"> Editar Voluntario</a></li>
                                 <li><a href="#" class="d-block" className="sletras"> Crear Grupo de Voluntarios</a></li>
                             </div>
                         </div>
@@ -36,8 +37,9 @@ const Sidebar = () => {
 
                         <div class="collapse" id="listActividades" className="lista-desplegable" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                             <div class="list-group">
-                                <li><a href="#" class="d-block" className="sletras"> Lista de Actividades</a></li>
-                                <li><a href="#" class="d-block" className="sletras"> Crear Actividad</a></li>
+                                <li><a href="/actividades" class="d-block" className="sletras"> Lista de Actividades</a></li>
+                                <li><a href="/crearavoluntariado" class="d-block" className="sletras"> Crear Actividad de Voluntariado</a></li>
+                                <li><a href="/crearaformativa" class="d-block" className="sletras"> Crear Actividad Formativa </a></li>
                                 <li><a href="#" class="d-block" className="sletras"> Editar Actividad</a></li>
                             </div>
                         </div>
@@ -58,9 +60,11 @@ const Sidebar = () => {
                     </li>
 
                     <li>
+                        <Link to="/">
                         <button class="navbar-toggler" type="button" >
                             <FiLogOut className="boton" /><a href="#" class="d-block" className="sletra"> Cerrar Sesión</a>
                         </button>
+                        </Link>
                     </li>
                 </ul>
             </div>
