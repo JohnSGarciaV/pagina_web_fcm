@@ -88,7 +88,7 @@ const EditarActividadVoluntariado = () => {
         if(comprobarCampos()){
             const options= {
                 method: 'PATCH',
-                url: 'http://localhost:5100/actividadesv/edit',
+                url: 'https://secure-earth-28511.herokuapp.com/actividadesv/edit',
                 headers: { 'Content-Type': 'application/json' },
                 data: {id: id, proyecto: proyecto, beneficiados: familia, nbeneficiado: nbeneficiarios, horas: nhoras, fecha: fecha, participantes: sparticipantes },
             };
@@ -118,7 +118,7 @@ const EditarActividadVoluntariado = () => {
     useEffect(async () => {
         const options = {
             method: 'GET',
-            url: 'http://localhost:5100/voluntarios',
+            url: 'https://secure-earth-28511.herokuapp.com/voluntarios',
         };
 
         await axios.request(options).then((response) => {
@@ -131,7 +131,7 @@ const EditarActividadVoluntariado = () => {
     useEffect(async () => {
         const options = {
             method: 'GET',
-            url: `http://localhost:5100/actividadv/${id.id}`,
+            url: `https://secure-earth-28511.herokuapp.com/actividadv/${id.id}`,
         };
 
         await axios.request(options).then((response) => {

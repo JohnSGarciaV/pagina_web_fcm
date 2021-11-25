@@ -78,7 +78,7 @@ const CrearActividadVoluntariado = () => {
         if(comprobarCampos()){
             const options= {
                 method: 'POST',
-                url: 'http://localhost:5100/actividadesf/new',
+                url: 'https://secure-earth-28511.herokuapp.com/actividadesf/new',
                 headers: { 'Content-Type': 'application/json' },
                 data: {proyecto: proyecto, nombre: nombre,  horas: nhoras, fecha: fecha, participantes: sparticipantes },
             };
@@ -107,7 +107,7 @@ const CrearActividadVoluntariado = () => {
     useEffect(async () => {
         const options = {
             method: 'GET',
-            url: 'http://localhost:5100/voluntarios',
+            url: 'https://secure-earth-28511.herokuapp.com/voluntarios',
         };
 
         await axios.request(options).then((response) => {

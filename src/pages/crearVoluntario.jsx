@@ -55,7 +55,7 @@ class CrearVoluntario extends Component {
         try {
             const options= {
                 method: 'POST',
-                url: 'http://localhost:5100/voluntarios/new',
+                url: 'https://secure-earth-28511.herokuapp.com/voluntarios/new',
                 headers: { 'Content-Type': 'application/json' },
                 data: this.state,
             };

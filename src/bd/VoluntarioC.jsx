@@ -17,7 +17,7 @@ class VoluntarioBD extends Component {
         const readVoluntarios = async () => {
             const options = {
                 method: 'GET',
-                url: 'http://localhost:5100/voluntarios'
+                url: 'https://secure-earth-28511.herokuapp.com/voluntarios'
               };
         
               await axios.request(options).then((response) => {

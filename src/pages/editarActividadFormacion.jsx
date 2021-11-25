@@ -81,7 +81,7 @@ const EditarActividadVoluntariado = () => {
         if(comprobarCampos()){
             const options= {
                 method: 'PATCH',
-                url: 'http://localhost:5100/actividadesf/edit',
+                url: 'https://secure-earth-28511.herokuapp.com/actividadesf/edit',
                 headers: { 'Content-Type': 'application/json' },
                 data: {id: id, proyecto: proyecto, nombre: nombre, horas: nhoras, fecha: fecha, participantes: sparticipantes },
             };
