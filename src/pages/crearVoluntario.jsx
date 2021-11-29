@@ -121,7 +121,7 @@ class CrearVoluntario extends Component {
                     </div>
                     <div class="collapse" id="infogeneral" >
                         <Form.Group as={Row} className="grupo" controlId="nombre">
-                            <Form.Label column sm="2">Nombre</Form.Label>
+                            <Form.Label column sm="2">Nombre Completo</Form.Label>
                             <Col sm="10">
                                 <Form.Control type="text" placeholder="Escriba el nombre completo" onChange={(value) => this.setState({ nombre: value.target.value })} />
                             </Col>
