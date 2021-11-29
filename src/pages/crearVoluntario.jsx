@@ -28,8 +28,10 @@ class CrearVoluntario extends Component {
     }
 
     cerrar = () => {
+        if (this.state.titulo == "Exitoso"){
+            this.limpiar();
+    }
       this.setState({show: false});
-
     }
 
     crearVoluntarioBD = async () => {
@@ -43,7 +45,7 @@ class CrearVoluntario extends Component {
             };
 
             await axios.request(options).then((response) => {
-                this.setState({titulo:"Exitosos"});
+                this.setState({titulo:"Exitoso"});
                 this.setState({mensaje: [{valor:"El voluntario fue creado de manera exitosa"}]});
                 this.setState({show: true});
              }).catch(function (error){
@@ -51,16 +53,32 @@ class CrearVoluntario extends Component {
                 this.setState({mensaje: [{valor:error}]});
                 this.setState({show: true});
              });
-
         } catch (error) {
             console.log(error);
         }
+
+
     }else{
         this.setState({show:true});
     }
 
 
     }
+    
+
+    limpiar = async () => {
+    
+        this.setState({
+            mensaje: [], titulo: "", show: false, nombre: "", nacionalidad: "0",
+            tdocumento: "0",  ndoc: "", ncelular: "", correo: "", rango: "0",
+            elegalizacion: "0", docidentidad: null, docssocial: null, docpasaporte: null,
+            docsviaje: null, dochvida: null, doccmotivacion: null, docdvoluntades: null,
+            docuimagen: null, convenio: "0", tipo: "0", modalidad: "0", finicio: new Date(), ffinal: new Date(),
+            ffinalc: false
+    });
+
+    }
+    
 
     comprobar =  () => {
         this.setState({mensaje:[]});
@@ -155,9 +173,9 @@ class CrearVoluntario extends Component {
                     </div>
                     <div class="collapse" id="infogeneral" >
                         <Form.Group as={Row} className="grupo" controlId="nombre">
-                            <Form.Label column sm="2">Nombre Completo</Form.Label>
+                            <Form.Label column sm="2" >Nombre Completo</Form.Label>
                             <Col sm="10">
-                                <Form.Control type="text" placeholder="Escriba el nombre completo" onChange={(value) => this.setState({ nombre: value.target.value })} />
+                                <Form.Control type="text" placeholder="Escriba el nombre completo" value={this.state.nombre} onChange={(value) => this.setState({ nombre: value.target.value })} />
                             </Col>
                         </Form.Group>
 
@@ -190,31 +208,31 @@ class CrearVoluntario extends Component {
                         </Form.Group>
 
                         <Form.Group as={Row} className="grupo" controlId="numeroDoc">
-                            <Form.Label column sm="2">Numero del Documento</Form.Label>
+                            <Form.Label column sm="2" >Numero del Documento</Form.Label>
                             <Col sm="10">
-                                <Form.Control type="text" placeholder="Escriba el numero del documento" onChange={(value) => this.setState({ ndoc: value.target.value })}></Form.Control>
+                                <Form.Control type="text" placeholder="Escriba el numero del documento" value={this.state.ndoc} onChange={(value) => this.setState({ ndoc: value.target.value })}></Form.Control>
                             </Col>
                         </Form.Group>
 
                         <Form.Group as={Row} className="grupo" controlId="celular">
-                            <Form.Label column sm="2">Numero del Celular</Form.Label>
+                            <Form.Label column sm="2" >Numero del Celular</Form.Label>
                             <Col sm="10">
-                                <Form.Control type="number" placeholder="Escriba el numero de celular" onChange={(value) => this.setState({ ncelular: value.target.value })}></Form.Control>
+                                <Form.Control type="number" placeholder="Escriba el numero de celular" value={this.state.ncelular} onChange={(value) => this.setState({ ncelular: value.target.value })}></Form.Control>
                             </Col>
                         </Form.Group>
 
                         <Form.Group as={Row} className="grupo" controlId="correo">
-                            <Form.Label column sm="2">Correo</Form.Label>
+                            <Form.Label column sm="2" >Correo</Form.Label>
                             <Col sm="10">
-                                <Form.Control type="email" placeholder="Escriba el correo electronico" onChange={(value) => this.setState({ correo: value.target.value })}></Form.Control>
+                                <Form.Control type="email" placeholder="Escriba el correo electronico" value={this.state.correo} onChange={(value) => this.setState({ correo: value.target.value })}></Form.Control>
                             </Col>
                         </Form.Group>
 
                         <Form.Group as={Row} className="grupo" controlId="rango">
                             <Form.Label column sm="2">Rango</Form.Label>
                             <Col sm="10">
-                                <Form.Select aria-label="Seleccion del rango" onChange={(value) => this.setState({ rango: value.target.value })}>
-                                    <option>Seleccione el rango</option>
+                                <Form.Select aria-label="Seleccion del rango" value={this.state.rango} onChange={(value) => this.setState({ rango: value.target.value })}>
+                                    <option value="0">Seleccione el rango</option>
                                     {
                                         Rango.map((elemento) => (
                                             <option value={elemento.rango}>{elemento.rango}</option>
@@ -227,8 +245,8 @@ class CrearVoluntario extends Component {
                         <Form.Group as={Row} className="grupo" controlId="elegalizacion">
                             <Form.Label column sm="2">Estado Leglización</Form.Label>
                             <Col sm="10">
-                            <Form.Select aria-label="Seleccion del rango" onChange={(value) => this.setState({ elegalizacion: value.target.value })}>
-                                    <option>Seleccione el estado de legalización</option>
+                            <Form.Select aria-label="Seleccion del rango" value={this.state.elegalizacion} onChange={(value) => this.setState({ elegalizacion: value.target.value })}>
+                                    <option value="0">Seleccione el estado de legalización</option>
                                     {
                                         estadoLegalizacion.map((elemento) => (
                                             <option value={elemento.estado}>{elemento.estado}</option>
