@@ -182,6 +182,14 @@ export const paises = [
     {nombre:"ZIMBABUENSE"},
 ]; 
 
+
+export const estadoLegalizacion=[
+   {estado:"Completo"},
+   {estado:"Incompleto"},
+   {estado:"Sin Envio"},
+   {estado:"No continua"}
+]
+
 export const tipoDocumento=[
     {nombre:"Cédula de Ciudadania",abreviacion:"CC"},
     {nombre:"Tarjeta de Identidad",abreviacion:"TI"},

@@ -7,6 +7,7 @@ import { tipoDocumento } from '../information/data';
 import { FiChevronDown } from "react-icons/fi"
 import { Rango } from '../information/data';
 import { Tipo } from '../information/data';
+import { estadoLegalizacion } from '../information/data';
 import { Modalidad } from '../information/data';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -17,30 +18,11 @@ class CrearVoluntario extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            mensaje: [],
-            titulo: "",
-            show: false,
-            nombre: "",
-            nacionalidad: "",
-            tdocumento: "",
-            ndoc: "",
-            ncelular: "",
-            correo: "",
-            rango: "",
-            elegalizacion: "",
-            docidentidad: null,
-            docssocial: null,
-            docpasaporte: null,
-            docsviaje: null,
-            dochvida: null,
-            doccmotivacion: null,
-            docdvoluntades: null,
-            docuimagen: null,
-            convenio: "",
-            tipo: "",
-            modalida: "",
-            finicio: new Date(),
-            ffinal: new Date(),
+            mensaje: [], titulo: "", show: false, nombre: "", nacionalidad: "0",
+            tdocumento: "0",  ndoc: "", ncelular: "", correo: "", rango: "0",
+            elegalizacion: "0", docidentidad: null, docssocial: null, docpasaporte: null,
+            docsviaje: null, dochvida: null, doccmotivacion: null, docdvoluntades: null,
+            docuimagen: null, convenio: "0", tipo: "0", modalidad: "0", finicio: new Date(), ffinal: new Date(),
             ffinalc: false
         }
     }
@@ -51,7 +33,7 @@ class CrearVoluntario extends Component {
     }
 
     crearVoluntarioBD = async () => {
-  
+        if (this.comprobar()){
         try {
             const options= {
                 method: 'POST',
@@ -73,27 +55,79 @@ class CrearVoluntario extends Component {
         } catch (error) {
             console.log(error);
         }
+    }else{
+        this.setState({show:true});
+    }
 
 
     }
 
     comprobar =  () => {
-        console.log(this.state);
-        if (this.state.nombre.length > 0 && this.state.nacionalidad.length > 0 && this.state.tdocumento.length > 0 &&
-            this.state.ndoc.length > 0 && this.state.ncelular.length > 0 && this.state.correo.length > 0 && this.state.rango.length > 0 &&
-            this.state.elegalizacion.length > 0 &&
-            this.state.convenio.length > 0 && this.state.tipo.length > 0 && this.state.modalida.length > 0
-        )
-            return true
-        else
-            return false
+        this.setState({mensaje:[]});
+        this.setState({titulo:"Error"});
+        var good=true;
+        var mnuevo=[];
+
+        if(this.state.nombre.toString().length <= 0){
+            good=false;
+            mnuevo.push({valor:"Debe escribir el nombre del voluntario"});
+        }
+
+        if(this.state.nacionalidad == "0"){
+            good=false;
+            mnuevo.push({valor:"Debe seleccionar una nacionalidad"});
+        }
+
+        if(this.state.tdocumento == "0"){
+            good=false;
+            mnuevo.push({valor:"Debe seleccionar el tipo de documento de identidad"});
+        }
+
+        if(this.state.ndoc.toString().length <= 0){
+            good=false;
+            mnuevo.push({valor:"Debe escribir el numero de documento de identidad"});
+        }
+
+        if(this.state.ncelular.toString().length <= 0){
+            good=false;
+            mnuevo.push({valor:"Debe escribir el numero de celular"});
+        }
+
+        if(this.state.correo.toString().length <= 0){
+            good=false;
+            mnuevo.push({valor:"Debe escribir el correo electronico"});
+        }
+        
+        if(this.state.rango == "0"){
+            good=false;
+            mnuevo.push({valor:"Debe seleccionar el rango"});
+        }
+        
+        if(this.state.elegalizacion == "0"){
+            good=false;
+            mnuevo.push({valor:"Debe seleccionar el estado de legalizacion"});
+        }
+        
+        if(this.state.convenio == "0"){
+            good=false;
+            mnuevo.push({valor:"Debe seleccionar el tipo de convenio"});
+        }
+
+        if(this.state.tipo == "0"){
+            good=false;
+            mnuevo.push({valor:"Debe seleccionar el tipo de voluntario"});
+        }
+
+        if(this.state.modalidad == "0"){
+            good=false;
+            mnuevo.push({valor:"Debe seleccionar el tipo de modalidad"});
+        }
+        
+        this.setState({mensaje: mnuevo});
+        return good;
     };
 
-    compcrear = async () => {
-            await this.crearVoluntarioBD()
-            
-    }
-
+   
     render() {
         return (
             <div className="fomularioCreacion">
@@ -130,8 +164,8 @@ class CrearVoluntario extends Component {
                         <Form.Group as={Row} className="grupo" controlId="pais">
                             <Form.Label column sm="2">Nacionalidad</Form.Label>
                             <Col sm="10">
-                                <Form.Select aria-label="Seleccion de pais" onChange={(value) => this.setState({ nacionalidad: value.target.value })}>
-                                    <option>Seleccione un pais</option>
+                                <Form.Select aria-label="Seleccion de nacionalidad" value={this.state.nacionalidad} onChange={(value) => this.setState({ nacionalidad: value.target.value })}>
+                                    <option value="0">Seleccione una nacionalidad</option>
                                     {
                                         paises.map((pais) => (
                                             <option value={pais.nombre}>{pais.nombre}</option>
@@ -144,8 +178,8 @@ class CrearVoluntario extends Component {
                         <Form.Group as={Row} className="grupo" controlId="tipodocumento">
                             <Form.Label column sm="2">Tipo de Documento</Form.Label>
                             <Col sm="10">
-                                <Form.Select aria-label="Seleccion el tipo de documento" onChange={(value) => this.setState({ tdocumento: value.target.value })}>
-                                    <option>Seleccione un tipo de documento</option>
+                                <Form.Select aria-label="Seleccion el tipo de documento" value={this.state.tdocumento} onChange={(value) => this.setState({ tdocumento: value.target.value })}>
+                                    <option value="0">Seleccione un tipo de documento</option>
                                     {
                                         tipoDocumento.map((tipo) => (
                                             <option value={tipo.nombre}>{tipo.nombre}</option>
@@ -193,7 +227,14 @@ class CrearVoluntario extends Component {
                         <Form.Group as={Row} className="grupo" controlId="elegalizacion">
                             <Form.Label column sm="2">Estado Leglización</Form.Label>
                             <Col sm="10">
-                                <Form.Control type="text" placeholder="Escriba el estado de la legalizacion" onChange={(value) => this.setState({ elegalizacion: value.target.value })} />
+                            <Form.Select aria-label="Seleccion del rango" onChange={(value) => this.setState({ elegalizacion: value.target.value })}>
+                                    <option>Seleccione el estado de legalización</option>
+                                    {
+                                        estadoLegalizacion.map((elemento) => (
+                                            <option value={elemento.estado}>{elemento.estado}</option>
+                                        ))
+                                    }
+                                </Form.Select>
                             </Col>
                         </Form.Group>
                     </div>
@@ -252,7 +293,7 @@ class CrearVoluntario extends Component {
                         <Form.Group as={Row} className="grupo" controlId="convenio">
                             <Form.Label column sm="2">Convenio</Form.Label>
                             <Col sm="10">
-                                <Form.Select aria-label="Seleccion del rango" onChange={(value) => this.setState({ convenio: value.target.value })}>
+                                <Form.Select aria-label="Seleccion del rango" value={this.state.convenio} onChange={(value) => this.setState({ convenio: value.target.value })}>
                                     <option>Seleccione el convenio</option>
                                     {
                                         Convenio.map((elemento) => (
@@ -264,10 +305,10 @@ class CrearVoluntario extends Component {
                         </Form.Group>
 
                         <Form.Group as={Row} className="grupo" controlId="convenio">
-                            <Form.Label column sm="2">Tipo</Form.Label>
+                            <Form.Label column sm="2">Tipo de voluntario</Form.Label>
                             <Col sm="10">
-                                <Form.Select aria-label="Seleccion del rango" onChange={(value) => this.setState({ tipo: value.target.value })}>
-                                    <option>Seleccione el tipo</option>
+                                <Form.Select aria-label="Seleccion del rango" value={this.state.tipo} onChange={(value) => this.setState({ tipo: value.target.value })}>
+                                    <option value="0">Seleccione el tipo de voluntario</option>
                                     {
                                         Tipo.map((elemento) => (
                                             <option value={elemento.tipo}>{elemento.tipo}</option>
@@ -280,8 +321,8 @@ class CrearVoluntario extends Component {
                         <Form.Group as={Row} className="grupo" controlId="convenio">
                             <Form.Label column sm="2">Modalidad</Form.Label>
                             <Col sm="10">
-                                <Form.Select aria-label="Seleccion del rango" onChange={(value) => this.setState({ modalida: value.target.value })}>
-                                    <option>Seleccione la modalidad </option>
+                                <Form.Select aria-label="Seleccion del rango" value={this.state.modalidad} onChange={(value) => this.setState({ modalidad: value.target.value })}>
+                                    <option valur="0">Seleccione la modalidad </option>
                                     {
                                         Modalidad.map((elemento) => (
                                             <option value={elemento.tipo}>{elemento.tipo}</option>
@@ -308,7 +349,7 @@ class CrearVoluntario extends Component {
                         </Form.Group>
                     </div>
                 </Form>
-                <button type="button" class="btn btn-success" onClick={this.compcrear}> CREAR VOLUNTARIO</button>
+                <button type="button" class="btn btn-success" onClick={this.crearVoluntarioBD}> CREAR VOLUNTARIO</button>
             </div>
         );
     }
