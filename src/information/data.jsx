@@ -223,7 +223,6 @@ export const Proyecto=[
     {tipo:"Construyendo Sueños"},
     {tipo:"Pintando Sueños"},
     {tipo:"Jornada Ambiental"},
-    {tipo:"Ecoespacios"}
 ]
 
 export const Formativa=[

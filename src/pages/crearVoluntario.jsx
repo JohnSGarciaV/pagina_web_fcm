@@ -57,7 +57,6 @@ class CrearVoluntario extends Component {
                 console.log(error);
             }
 
-
         } else {
             this.setState({ show: true });
         }
@@ -74,7 +73,7 @@ class CrearVoluntario extends Component {
             elegalizacion: "0", docidentidad: null, docssocial: null, docpasaporte: null,
             docsviaje: null, dochvida: null, doccmotivacion: null, docdvoluntades: null,
             docuimagen: null, convenio: "0", tipo: "0", modalidad: "0", finicio: new Date(), ffinal: new Date(),
-            ffinalc: false
+            ffinalc: false, ocupacion:""
         });
 
     }
@@ -220,7 +219,7 @@ class CrearVoluntario extends Component {
                         </Form.Group>
 
                         <Form.Group as={Row} className="grupo" controlId="celular">
-                            <Form.Label column sm="2" >Numero del Celular</Form.Label>
+                            <Form.Label column sm="2" >Numero del Celular con WhatsApp</Form.Label>
                             <Col sm="10">
                                 <Form.Control type="number" placeholder="Escriba el numero de celular" value={this.state.ncelular} onChange={(value) => this.setState({ ncelular: value.target.value })}></Form.Control>
                             </Col>

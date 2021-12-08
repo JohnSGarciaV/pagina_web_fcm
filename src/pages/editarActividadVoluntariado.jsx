@@ -100,6 +100,9 @@ const EditarActividadVoluntariado = () => {
                 data: {id: id, proyecto: proyecto, beneficiados: familia, nbeneficiado: nbeneficiarios, horas: nhoras, fecha: fecha, participantes: sparticipantes },
             };
 
+            console.log(id);
+            console.log(id.id);
+
             await axios.request(options).then((response) => {
                setMensaje([]);
                setTitulo("Exitoso");
