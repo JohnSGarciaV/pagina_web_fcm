@@ -36,8 +36,8 @@ const Sidebar = () => {
 
                         <div class="collapse" id="listActividades" className="lista-desplegable" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                             <div class="list-group">
-                                <li><a href="/actividadesvoluntariado" class="d-block" className="sletras">Actividades de Formación</a></li>
-                                <li><a href="/actividadesformacion" class="d-block" className="sletras">Actividades de Voluntariado</a></li>
+                                <li><a href="/actividadesformacion" class="d-block" className="sletras">Actividades de Formación</a></li>
+                                <li><a href="/actividadesvoluntariado" class="d-block" className="sletras">Actividades de Voluntariado</a></li>
                                 <li><a href="/crearavoluntariado" class="d-block" className="sletras"> Crear Actividad de Voluntariado</a></li>
                                 <li><a href="/crearaformativa" class="d-block" className="sletras"> Crear Actividad Formativa </a></li>
                             </div>
