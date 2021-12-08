@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router';
 
 
-const EditarActividadVoluntariado = () => {
+const EditarActividadFormacion = () => {
     const[id, setId] = useState(useParams());
 
     const [mensaje, setMensaje] = useState([]);
@@ -245,4 +245,4 @@ const EditarActividadVoluntariado = () => {
     )
 }
 
-export default EditarActividadVoluntariado;
+export default EditarActividadFormacion;

@@ -13,6 +13,8 @@ import Inicio from './pages/inicio';
 import CrearActividadFormacion from './pages/crearActividadFormacion';
 import EditarActividadVoluntariado from './pages/editarActividadVoluntariado';
 import EditarActividadFormacion from './pages/editarActividadFormacion';
+import VerActividadFormacion from './pages/verActividadFormacion';
+import VerActividadVoluntariado from './pages/verActividadVoluntariado';
 
 function App() {
   return (
@@ -28,7 +30,7 @@ function App() {
       
           </Route>
 
-          <Route path={['/Voluntarios','/InformacionVoluntario/:ndoc', '/crearVoluntario', '/editarVoluntario/:ndoc', '/actividadesvoluntariado','/actividadesformacion', '/crearavoluntariado', '/crearaformativa','/editaravoluntariado/:id','/editaraformacion/:id']} exact>
+          <Route path={['/Voluntarios','/InformacionVoluntario/:ndoc', '/crearVoluntario', '/editarVoluntario/:ndoc', '/actividadesvoluntariado','/actividadesformacion', '/crearavoluntariado', '/crearaformativa','/editaravoluntariado/:id','/editaraformacion/:id','/veravoluntariado/:id','/veraformacion/:id']} exact>
             <Layout>
               <Switch>
 
@@ -68,6 +70,14 @@ function App() {
                 
                 <Route path='/editaraformacion/:id' component={EditarActividadFormacion} exact>
                   <EditarActividadFormacion/>
+                </Route>
+
+                <Route path='/veravoluntariado/:id' component={VerActividadVoluntariado} exact>
+                  <VerActividadVoluntariado/>
+                </Route>
+                
+                <Route path='/veraformacion/:id' component={VerActividadFormacion} exact>
+                  <VerActividadFormacion/>
                 </Route>
               </Switch>
             </Layout>

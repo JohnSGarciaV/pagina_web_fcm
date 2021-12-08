@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { Rol } from "../information/data";
 import { useParams } from 'react-router';
+import { estadoActividad } from '../information/data';
 
 const EditarActividadVoluntariado = () => {
     const[id, setId] = useState(useParams());
@@ -23,6 +24,7 @@ const EditarActividadVoluntariado = () => {
     const [pseleccionado, setPSeleccionado] = useState(0);
     const [ind, setInd] = useState(1);
 
+    const [estado, setEstado] = useState("0");
     const [sparticipantes, setSParticipantes] = useState([]);
     const [proyecto, setProyecto] = useState("0");
     const [familia, setFamilia] = useState("");
@@ -73,6 +75,11 @@ const EditarActividadVoluntariado = () => {
         if(nhoras.valueOf() <= 0){
             good=false;
             mnuevo.push({valor:"El numero de horas debe ser mayor a 0"});
+        }
+
+        if(estado == "0"){
+            good=false;
+            mnuevo.push({valor:"Debe seleccionar un estado"});
         }
 
         if(sparticipantes.length <= 0){
@@ -141,6 +148,7 @@ const EditarActividadVoluntariado = () => {
             setNHoras(response.data.horas);
             setFecha(Date.parse(response.data.fecha));
             setSParticipantes(response.data.participantes);
+            setEstado(response.data.estado);
           
         }).catch(function (error) {
             console.error(error);
@@ -202,6 +210,19 @@ const EditarActividadVoluntariado = () => {
                 </Col>
             </Form.Group>
 
+            <Form.Group as={Row} className="grupo" controlId="estado">
+                <Form.Label column sm="2">Estado</Form.Label>
+                <Col sm="10">
+                    <Form.Select aria-label="Seleccion del proyecto" value={estado} onChange={(e) => setEstado(e.target.value)} >
+                        <option value="0">Seleccione el estado</option>
+                        {
+                            estadoActividad.map((elemento) => (
+                                <option value={elemento.estado}>{elemento.estado}</option>
+                            ))
+                        }
+                    </Form.Select>
+                </Col>
+            </Form.Group>
 
             <Form.Group as={Row} className="grupo" controlId="numeroDoc">
                 <Form.Label column sm="2">Fecha de la Actividad</Form.Label>

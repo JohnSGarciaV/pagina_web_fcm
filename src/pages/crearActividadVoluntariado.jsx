@@ -7,6 +7,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { Rol } from "../information/data";
+import { estadoActividad } from '../information/data';
 
 const CrearActividadVoluntariado = () => {
     const [mensaje, setMensaje] = useState([]);
@@ -20,6 +21,7 @@ const CrearActividadVoluntariado = () => {
     const [pseleccionado, setPSeleccionado] = useState(0);
     const [ind, setInd] = useState(1);
 
+    const [estado, setEstado]= useState("0");
     const [sparticipantes, setSParticipantes] = useState([]);
     const [proyecto, setProyecto] = useState("0");
     const [familia, setFamilia] = useState("");
@@ -57,6 +59,11 @@ const CrearActividadVoluntariado = () => {
             mnuevo.push({valor:"Debe seleccionar un proyecto"});
         }
 
+        if(estado == "0"){
+            good=false;
+            mnuevo.push({valor:"Debe seleccionar un estado"});
+        }
+
         if(familia.toString().length <= 0){
             good=false;
             mnuevo.push({valor:"Debe escribir la Familia/Comunidad beneficiada"});
@@ -87,7 +94,7 @@ const CrearActividadVoluntariado = () => {
                 method: 'POST',
                 url: 'https://secure-earth-28511.herokuapp.com/actividadesv/new',
                 headers: { 'Content-Type': 'application/json' },
-                data: {proyecto: proyecto, beneficiados: familia, nbeneficiado: nbeneficiarios, horas: nhoras, fecha: fecha, participantes: sparticipantes },
+                data: {proyecto: proyecto, beneficiados: familia, nbeneficiado: nbeneficiarios, horas: nhoras, fecha: fecha, participantes: sparticipantes, estado: estado },
             };
 
             await axios.request(options).then((response) => {
@@ -99,6 +106,7 @@ const CrearActividadVoluntariado = () => {
                setFamilia("");
                setNBeneficiarios(0);
                setNHoras(0);
+               setEstado(0);
                setSParticipantes([]);
 
             }).catch(function (error){
@@ -186,6 +194,20 @@ const CrearActividadVoluntariado = () => {
 
                 <Col sm="10">
                     <DatePicker selected={fecha} onChange={(date) => setFecha(date)} />
+                </Col>
+            </Form.Group>
+
+            <Form.Group as={Row} className="grupo" controlId="estado">
+                <Form.Label column sm="2">Estado</Form.Label>
+                <Col sm="10">
+                    <Form.Select aria-label="Seleccion del proyecto" value={estado} onChange={(e) => setEstado(e.target.value)} >
+                        <option value="0">Seleccione el estado</option>
+                        {
+                            estadoActividad.map((elemento) => (
+                                <option value={elemento.estado}>{elemento.estado}</option>
+                            ))
+                        }
+                    </Form.Select>
                 </Col>
             </Form.Group>
 
