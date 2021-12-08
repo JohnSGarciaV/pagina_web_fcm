@@ -19,152 +19,157 @@ class CrearVoluntario extends Component {
         super(props);
         this.state = {
             mensaje: [], titulo: "", show: false, nombre: "", nacionalidad: "0",
-            tdocumento: "0",  ndoc: "", ncelular: "", correo: "", rango: "0",
+            tdocumento: "0", ndoc: "", ncelular: "", correo: "", rango: "0",
             elegalizacion: "0", docidentidad: null, docssocial: null, docpasaporte: null,
             docsviaje: null, dochvida: null, doccmotivacion: null, docdvoluntades: null,
             docuimagen: null, convenio: "0", tipo: "0", modalidad: "0", finicio: new Date(), ffinal: new Date(),
-            ffinalc: false
+            ffinalc: false, ocupacion: ""
         }
     }
 
     cerrar = () => {
-        if (this.state.titulo == "Exitoso"){
+        if (this.state.titulo == "Exitoso") {
             this.limpiar();
-    }
-      this.setState({show: false});
+        }
+        this.setState({ show: false });
     }
 
     crearVoluntarioBD = async () => {
-        if (this.comprobar()){
-        try {
-            const options= {
-                method: 'POST',
-                url: 'https://secure-earth-28511.herokuapp.com/voluntarios/new',
-                headers: { 'Content-Type': 'application/json' },
-                data: this.state,
-            };
+        if (this.comprobar()) {
+            try {
+                const options = {
+                    method: 'POST',
+                    url: 'https://secure-earth-28511.herokuapp.com/voluntarios/new',
+                    headers: { 'Content-Type': 'application/json' },
+                    data: this.state,
+                };
 
-            await axios.request(options).then((response) => {
-                this.setState({titulo:"Exitoso"});
-                this.setState({mensaje: [{valor:"El voluntario fue creado de manera exitosa"}]});
-                this.setState({show: true});
-             }).catch(function (error){
-                this.setState({titulo:"Error"});
-                this.setState({mensaje: [{valor:error}]});
-                this.setState({show: true});
-             });
-        } catch (error) {
-            console.log(error);
+                await axios.request(options).then((response) => {
+                    this.setState({ titulo: "Exitoso" });
+                    this.setState({ mensaje: [{ valor: "El voluntario fue creado de manera exitosa" }] });
+                    this.setState({ show: true });
+                }).catch(function (error) {
+                    this.setState({ titulo: "Error" });
+                    this.setState({ mensaje: [{ valor: error }] });
+                    this.setState({ show: true });
+                });
+            } catch (error) {
+                console.log(error);
+            }
+
+
+        } else {
+            this.setState({ show: true });
         }
 
 
-    }else{
-        this.setState({show:true});
     }
 
-
-    }
-    
 
     limpiar = async () => {
-    
+
         this.setState({
             mensaje: [], titulo: "", show: false, nombre: "", nacionalidad: "0",
-            tdocumento: "0",  ndoc: "", ncelular: "", correo: "", rango: "0",
+            tdocumento: "0", ndoc: "", ncelular: "", correo: "", rango: "0",
             elegalizacion: "0", docidentidad: null, docssocial: null, docpasaporte: null,
             docsviaje: null, dochvida: null, doccmotivacion: null, docdvoluntades: null,
             docuimagen: null, convenio: "0", tipo: "0", modalidad: "0", finicio: new Date(), ffinal: new Date(),
             ffinalc: false
-    });
+        });
 
     }
-    
 
-    comprobar =  () => {
-        this.setState({mensaje:[]});
-        this.setState({titulo:"Error"});
-        var good=true;
-        var mnuevo=[];
 
-        if(this.state.nombre.toString().length <= 0){
-            good=false;
-            mnuevo.push({valor:"Debe escribir el nombre del voluntario"});
-        }
+    comprobar = () => {
+        this.setState({ mensaje: [] });
+        this.setState({ titulo: "Error" });
+        var good = true;
+        var mnuevo = [];
 
-        if(this.state.nacionalidad == "0"){
-            good=false;
-            mnuevo.push({valor:"Debe seleccionar una nacionalidad"});
+        if (this.state.nombre.toString().length <= 0) {
+            good = false;
+            mnuevo.push({ valor: "Debe escribir el nombre del voluntario" });
         }
 
-        if(this.state.tdocumento == "0"){
-            good=false;
-            mnuevo.push({valor:"Debe seleccionar el tipo de documento de identidad"});
+        if (this.state.nacionalidad == "0") {
+            good = false;
+            mnuevo.push({ valor: "Debe seleccionar una nacionalidad" });
         }
 
-        if(this.state.ndoc.toString().length <= 0){
-            good=false;
-            mnuevo.push({valor:"Debe escribir el numero de documento de identidad"});
+        if (this.state.tdocumento == "0") {
+            good = false;
+            mnuevo.push({ valor: "Debe seleccionar el tipo de documento de identidad" });
         }
 
-        if(this.state.ncelular.toString().length <= 0){
-            good=false;
-            mnuevo.push({valor:"Debe escribir el numero de celular"});
+        if (this.state.ndoc.toString().length <= 0) {
+            good = false;
+            mnuevo.push({ valor: "Debe escribir el numero de documento de identidad" });
         }
 
-        if(this.state.correo.toString().length <= 0){
-            good=false;
-            mnuevo.push({valor:"Debe escribir el correo electronico"});
-        }
-        
-        if(this.state.rango == "0"){
-            good=false;
-            mnuevo.push({valor:"Debe seleccionar el rango"});
-        }
-        
-        if(this.state.elegalizacion == "0"){
-            good=false;
-            mnuevo.push({valor:"Debe seleccionar el estado de legalizacion"});
-        }
-        
-        if(this.state.convenio == "0"){
-            good=false;
-            mnuevo.push({valor:"Debe seleccionar el tipo de convenio"});
+        if (this.state.ncelular.toString().length <= 0) {
+            good = false;
+            mnuevo.push({ valor: "Debe escribir el numero de celular" });
         }
 
-        if(this.state.tipo == "0"){
-            good=false;
-            mnuevo.push({valor:"Debe seleccionar el tipo de voluntario"});
+        if (this.state.correo.toString().length <= 0) {
+            good = false;
+            mnuevo.push({ valor: "Debe escribir el correo electronico" });
         }
 
-        if(this.state.modalidad == "0"){
-            good=false;
-            mnuevo.push({valor:"Debe seleccionar el tipo de modalidad"});
+        if (this.state.ocupacion.toString().length <= 0) {
+            good = false;
+            mnuevo.push({ valor: "Debe escribir la ocupacion" });
         }
-        
-        this.setState({mensaje: mnuevo});
+
+        if (this.state.rango == "0") {
+            good = false;
+            mnuevo.push({ valor: "Debe seleccionar el rango" });
+        }
+
+        if (this.state.elegalizacion == "0") {
+            good = false;
+            mnuevo.push({ valor: "Debe seleccionar el estado de legalizacion" });
+        }
+
+        if (this.state.convenio == "0") {
+            good = false;
+            mnuevo.push({ valor: "Debe seleccionar el tipo de convenio" });
+        }
+
+        if (this.state.tipo == "0") {
+            good = false;
+            mnuevo.push({ valor: "Debe seleccionar el tipo de voluntario" });
+        }
+
+        if (this.state.modalidad == "0") {
+            good = false;
+            mnuevo.push({ valor: "Debe seleccionar el tipo de modalidad" });
+        }
+
+        this.setState({ mensaje: mnuevo });
         return good;
     };
 
-   
+
     render() {
         return (
             <div className="fomularioCreacion">
-                  <div>
-                <Modal show={this.state.show} onHide={this.cerrar}>
-                    <Modal.Header>
-                        <ModalTitle>
-                         {this.state.titulo}
-                        </ModalTitle>
-                        <button type="button" class="btn btn-danger" onClick={this.cerrar}> Cerrar</button>
-                    </Modal.Header>
-                    <Modal.Body>
-                        {   this.state.mensaje.map((elemento) =>
-                            <p>{elemento.valor}</p>
+                <div>
+                    <Modal show={this.state.show} onHide={this.cerrar}>
+                        <Modal.Header>
+                            <ModalTitle>
+                                {this.state.titulo}
+                            </ModalTitle>
+                            <button type="button" class="btn btn-danger" onClick={this.cerrar}> Cerrar</button>
+                        </Modal.Header>
+                        <Modal.Body>
+                            {this.state.mensaje.map((elemento) =>
+                                <p>{elemento.valor}</p>
 
-                        )}
-                    </Modal.Body>
-                </Modal>
-            </div>
+                            )}
+                        </Modal.Body>
+                    </Modal>
+                </div>
 
                 <Form>
                     <div className="titulo">
@@ -228,6 +233,13 @@ class CrearVoluntario extends Component {
                             </Col>
                         </Form.Group>
 
+                        <Form.Group as={Row} className="grupo" controlId="correo">
+                            <Form.Label column sm="2" >Ocupación</Form.Label>
+                            <Col sm="10">
+                                <Form.Control type="email" placeholder="Escriba la ocupacion" value={this.state.ocupacion} onChange={(value) => this.setState({ ocupacion: value.target.value })}></Form.Control>
+                            </Col>
+                        </Form.Group>
+
                         <Form.Group as={Row} className="grupo" controlId="rango">
                             <Form.Label column sm="2">Rango</Form.Label>
                             <Col sm="10">
@@ -245,7 +257,7 @@ class CrearVoluntario extends Component {
                         <Form.Group as={Row} className="grupo" controlId="elegalizacion">
                             <Form.Label column sm="2">Estado Leglización</Form.Label>
                             <Col sm="10">
-                            <Form.Select aria-label="Seleccion del rango" value={this.state.elegalizacion} onChange={(value) => this.setState({ elegalizacion: value.target.value })}>
+                                <Form.Select aria-label="Seleccion del rango" value={this.state.elegalizacion} onChange={(value) => this.setState({ elegalizacion: value.target.value })}>
                                     <option value="0">Seleccione el estado de legalización</option>
                                     {
                                         estadoLegalizacion.map((elemento) => (
@@ -264,42 +276,42 @@ class CrearVoluntario extends Component {
                     <div class="collapse" id="documentacion">
                         <Form.Group as={Row} className="grupo">
                             <Form.Label>Documento de identidad</Form.Label>
-                            <input class="form-control" type="file" id="didentidad" onChange={(value) => this.setState({ docidentidad: value.target.files.item(0)})}></input>
+                            <input class="form-control" type="file" id="didentidad" onChange={(value) => this.setState({ docidentidad: value.target.files.item(0) })}></input>
                         </Form.Group>
 
                         <Form.Group as={Row} className="grupo">
                             <Form.Label>Seguridad Social</Form.Label>
-                            <input class="form-control" type="file" id="ssocial" onChange={(value) => this.setState({ docssocial: value.target.files.item(0).arrayBuffer})}></input>
+                            <input class="form-control" type="file" id="ssocial" onChange={(value) => this.setState({ docssocial: value.target.files.item(0).arrayBuffer })}></input>
                         </Form.Group>
 
                         <Form.Group as={Row} className="grupo">
                             <Form.Label>Pasaporte</Form.Label>
-                            <input class="form-control" type="file" id="pasaporte" onChange={(value) => this.setState({ docpasaporte:value.target.files.item(0).arrayBuffer})}></input>
+                            <input class="form-control" type="file" id="pasaporte" onChange={(value) => this.setState({ docpasaporte: value.target.files.item(0).arrayBuffer })}></input>
                         </Form.Group>
 
                         <Form.Group as={Row} className="grupo">
                             <Form.Label>Seguro de Viaje</Form.Label>
-                            <input class="form-control" type="file" id="sviaje" onChange={(value) => this.setState({ docsviaje: value.target.files.item(0).arrayBuffer})}></input>
+                            <input class="form-control" type="file" id="sviaje" onChange={(value) => this.setState({ docsviaje: value.target.files.item(0).arrayBuffer })}></input>
                         </Form.Group>
 
                         <Form.Group as={Row} className="grupo">
                             <Form.Label>Hoja de Vida</Form.Label>
-                            <input class="form-control" type="file" id="hvida" onChange={(value) => this.setState({ dochvida: value.target.files.item(0).arrayBuffer})}></input>
+                            <input class="form-control" type="file" id="hvida" onChange={(value) => this.setState({ dochvida: value.target.files.item(0).arrayBuffer })}></input>
                         </Form.Group>
 
                         <Form.Group as={Row} className="grupo">
                             <Form.Label>Carta de Motivación</Form.Label>
-                            <input class="form-control" type="file" id="cmotivacion" onChange={(value) => this.setState({ doccmotivacion: value.target.files.item(0).arrayBuffer})}></input>
+                            <input class="form-control" type="file" id="cmotivacion" onChange={(value) => this.setState({ doccmotivacion: value.target.files.item(0).arrayBuffer })}></input>
                         </Form.Group>
 
                         <Form.Group as={Row} className="grupo">
                             <Form.Label>Declaración de Voluntades</Form.Label>
-                            <input class="form-control" type="file" id="dvoluntad" onChange={(value) => this.setState({ docdvoluntades: value.target.files.item(0).arrayBuffer})}></input>
+                            <input class="form-control" type="file" id="dvoluntad" onChange={(value) => this.setState({ docdvoluntades: value.target.files.item(0).arrayBuffer })}></input>
                         </Form.Group>
 
                         <Form.Group as={Row} className="grupo">
                             <Form.Label>Uso de Imagen</Form.Label>
-                            <input class="form-control" type="file" id="dimagen" onChange={(value) => this.setState({ docuimagen: value.target.files.item(0).arrayBuffer})}></input>
+                            <input class="form-control" type="file" id="dimagen" onChange={(value) => this.setState({ docuimagen: value.target.files.item(0).arrayBuffer })}></input>
                         </Form.Group>
                     </div>
 

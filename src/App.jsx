@@ -1,12 +1,13 @@
 
 import './App.css';
 import Layout from './layouts/Layout';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, BrowserRouter } from 'react-router-dom';
 import Voluntarios from './pages/voluntarios';
 import InformacionVoluntario from './pages/InformacionVoluntario';
 import CrearVoluntario from './pages/crearVoluntario';
 import EditarVoluntario from './pages/editarVoluntario';
-import Actividades from './pages/Actividades';
+import ActividadesFormacion from './pages/ActividadesFormacion';
+import ActividadesVoluntariado from './pages/ActividadesVoluntariado';
 import CrearActividadVoluntariado from './pages/crearActividadVoluntariado';
 import Inicio from './pages/inicio';
 import CrearActividadFormacion from './pages/crearActividadFormacion';
@@ -16,6 +17,7 @@ import EditarActividadFormacion from './pages/editarActividadFormacion';
 function App() {
   return (
     <div className="App">
+      <BrowserRouter>
       <Router>
         <Switch>
 
@@ -26,7 +28,7 @@ function App() {
       
           </Route>
 
-          <Route path={['/Voluntarios','/InformacionVoluntario/:ndoc', '/crearVoluntario', '/editarVoluntario', '/actividades', '/crearavoluntariado', '/crearaformativa','/editaravoluntariado/:id','/editaraformacion/:id']} exact>
+          <Route path={['/Voluntarios','/InformacionVoluntario/:ndoc', '/crearVoluntario', '/editarVoluntario/:ndoc', '/actividadesvoluntariado','/actividadesformacion', '/crearavoluntariado', '/crearaformativa','/editaravoluntariado/:id','/editaraformacion/:id']} exact>
             <Layout>
               <Switch>
 
@@ -34,20 +36,22 @@ function App() {
                 <Voluntarios />
               </Route>
 
-                <Route path='/InformacionVoluntario/:ndoc' exact>
-                  <InformacionVoluntario />
+                <Route path='/InformacionVoluntario/:ndoc' component={InformacionVoluntario} exact>
                 </Route>
 
                 <Route path='/crearVoluntario' exact>
                   <CrearVoluntario />
                 </Route>
 
-                <Route path='/editarVoluntario' exact>
-                  <EditarVoluntario />
+                <Route path='/editarVoluntario/:ndoc' component={EditarVoluntario} exact>
                 </Route>
 
-                <Route path='/actividades' exact>
-                  <Actividades />
+                <Route path='/actividadesvoluntariado' exact>
+                  <ActividadesVoluntariado />
+                </Route>
+
+                <Route path='/actividadesformacion' exact>
+                  <ActividadesFormacion />
                 </Route>
                 
                 <Route path='/crearavoluntariado' exact>
@@ -72,6 +76,7 @@ function App() {
 
         </Switch>
       </Router>
+      </BrowserRouter>
     </div>
   );
 }

@@ -1,7 +1,24 @@
+import { useState, useEffect  } from 'react';
 import { Table, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-const TablaActividadesVoluntariado = ({actividades, setActividades}) => {
+const TablaActividadesVoluntariado = () => {
+    const[actividades, setActividades]= useState([]);
+
+    useEffect(async () => {
+        const options = {
+            method: 'GET',
+            url: 'https://secure-earth-28511.herokuapp.com/actividadesv',
+        };
+
+        await axios.request(options).then((response) => {
+            setActividades(response.data);
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }, []);
+
     return (
         <Container maxWidth="sm">
         <Table hover size="sm" bordered="true">
@@ -9,7 +26,7 @@ const TablaActividadesVoluntariado = ({actividades, setActividades}) => {
                 <tr>
                     <th>PROYECTO</th>
                     <th>FAMILIA/COMUNIDAD</th>
-                    <th># BENEFICIADOA</th>
+                    <th># BENEFICIADOS</th>
                     <th>DURACIÓN (HORAS)</th>
                     <th># PARTICIPANTES</th>
                     <th>ESTADO</th>
@@ -21,13 +38,14 @@ const TablaActividadesVoluntariado = ({actividades, setActividades}) => {
                     actividades.map((elemento) => (
                         <tr>
                             <td>{elemento.proyecto}</td>
-                            <td>{elemento.beneficiarios}</td>
-                            <td>{elemento.nbeneficiarios}</td>
-                            <td>{elemento.duracion}</td>
-                            <td>{elemento.nparticipantes}</td>
+                            <td>{elemento.beneficiados}</td>
+                            <td>{elemento.nbeneficiado}</td>
+                            <td>{elemento.horas}</td>
+                            <td>{elemento.participantes.length}</td>
                             <td>{elemento.estado}</td>
                             <td>
-                                <Link to='/editarVoluntario'><button type="button" class="btn btn-primary"> Editar </button></Link>
+                                <button type="button" class="btn btn-success"> Ver Información</button>
+                                <Link to={{pathname:`/editaravoluntariado/${elemento._id}`}}><button type="button" class="btn btn-primary"> Editar </button></Link>
                                 <button type="button" class="btn btn-danger"> Eliminar </button>
                             </td>
                         </tr>
@@ -39,7 +57,22 @@ const TablaActividadesVoluntariado = ({actividades, setActividades}) => {
     )
 }
 
-const TablaActividadesFormacion = ({actividades, setActividades}) => {
+const TablaActividadesFormacion = () => {
+    const[actividades, setActividades]= useState([]);
+
+    useEffect(async () => {
+        const options = {
+            method: 'GET',
+            url: 'https://secure-earth-28511.herokuapp.com/actividadesf',
+        };
+
+        await axios.request(options).then((response) => {
+            setActividades(response.data);
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }, []);
+
     return (
         <Container maxWidth="sm">
         <Table hover size="sm" bordered="true">
@@ -56,12 +89,13 @@ const TablaActividadesFormacion = ({actividades, setActividades}) => {
                 {
                     actividades.map((elemento) => (
                         <tr>
-                            <td>{elemento.tipo}</td>
+                            <td>{elemento.proyecto}</td>
                             <td>{elemento.nombre}</td>
-                            <td>{elemento.duracion}</td>
-                            <td>{elemento.nparticipantes}</td>
+                            <td>{elemento.horas}</td>
+                            <td>{elemento.participantes.length}</td>
                             <td>
-                                <Link to='/editarVoluntario'><button type="button" class="btn btn-primary"> Editar </button></Link>
+                                <button type="button" class="btn btn-success"> Ver Información</button>
+                                <Link to={{pathname:`/editaraformacion/${elemento._id}`}}><button type="button" class="btn btn-primary"> Editar </button></Link>
                                 <button type="button" class="btn btn-danger"> Eliminar </button>
                             </td>
                         </tr>

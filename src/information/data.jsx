@@ -243,3 +243,9 @@ export const Rol=[
     {tipo:"Apoyo social en cuadrilla"},
     {tipo:"Observador FCM"},
 ]
+
+export const estadoActividad=[
+    {estado: "Programado"},
+    {estado: "Realizado"}
+    
+]
