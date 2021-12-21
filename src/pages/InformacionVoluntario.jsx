@@ -58,6 +58,7 @@ class InformacionVoluntario extends Component {
                                     <th>CORREO</th>
                                     <th>RANGO</th>
                                     <th>ESTADO DE LEGALIZACIÓN </th>
+                                    <th>OBSERVACIONES</th>
                                     <th>ACCIONES </th>
                                 </tr>
                             </thead>
@@ -72,6 +73,7 @@ class InformacionVoluntario extends Component {
                                     <td>{this.state.correo}</td>
                                     <td>{this.state.rango}</td>
                                     <td>{this.state.elegalizacion}  </td>
+                                    <td>{this.state.observaciones} </td>
                                     <td>
 
                                         <Link to={{pathname:`/editarVoluntario/${this.state._id}`, state:{ndoc:this.state.ndoc}}}><button type="button" class="btn btn-primary"> Editar </button></Link>

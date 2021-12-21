@@ -23,7 +23,7 @@ class EditarVoluntario extends Component {
             elegalizacion: "0", docidentidad: null, docssocial: null, docpasaporte: null,
             docsviaje: null, dochvida: null, doccmotivacion: null, docdvoluntades: null,
             docuimagen: null, convenio: "0", tipo: "0", modalidad: "0", finicio: new Date(), ffinal: new Date(),
-            ffinalc: false, ocupacion: ""
+            ffinalc: false, ocupacion: "", observaciones: ""
         }
     }
 
@@ -74,7 +74,7 @@ class EditarVoluntario extends Component {
             elegalizacion: "0", docidentidad: null, docssocial: null, docpasaporte: null,
             docsviaje: null, dochvida: null, doccmotivacion: null, docdvoluntades: null,
             docuimagen: null, convenio: "0", tipo: "0", modalidad: "0", finicio: new Date(), ffinal: new Date(),
-            ffinalc: false
+            ffinalc: false, observaciones: ""
         });
 
     }
@@ -131,6 +131,11 @@ class EditarVoluntario extends Component {
             mnuevo.push({ valor: "Debe seleccionar el estado de legalizacion" });
         }
 
+        if (this.state.elegalizacion == "0") {
+            good = false;
+            mnuevo.push({ valor: "Debe escribir las observaciones" });
+        }
+
         if (this.state.convenio == "0") {
             good = false;
             mnuevo.push({ valor: "Debe seleccionar el tipo de convenio" });
@@ -173,6 +178,7 @@ class EditarVoluntario extends Component {
                 this.setState({tipo:response.data.tipo});
                 this.setState({modalidad:response.data.modalidad});
                 this.setState({ocupacion:response.data.ocupacion});
+                this.setState({observaciones:response.data.observaciones});
                 this.setState({id:response.data._id});
                 this.setState({finicio: Date.parse(response.data.finicio)});
                 this.setState({ffinal: Date.parse(response.data.ffinal)});
@@ -298,6 +304,13 @@ class EditarVoluntario extends Component {
                                         ))
                                     }
                                 </Form.Select>
+                            </Col>
+                        </Form.Group>
+
+                        <Form.Group as={Row} className="grupo" controlId="correo">
+                            <Form.Label column sm="2" >Observaciones</Form.Label>
+                            <Col sm="10">
+                                <Form.Control type="email" placeholder="Escriba las observaciones" value={this.state.observaciones} onChange={(value) => this.setState({ observaciones: value.target.value })}></Form.Control>
                             </Col>
                         </Form.Group>
                     </div>

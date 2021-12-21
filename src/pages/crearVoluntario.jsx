@@ -23,7 +23,7 @@ class CrearVoluntario extends Component {
             elegalizacion: "0", docidentidad: null, docssocial: null, docpasaporte: null,
             docsviaje: null, dochvida: null, doccmotivacion: null, docdvoluntades: null,
             docuimagen: null, convenio: "0", tipo: "0", modalidad: "0", finicio: new Date(), ffinal: new Date(),
-            ffinalc: false, ocupacion: ""
+            ffinalc: false, ocupacion: "", observaciones: ""
         }
     }
 
@@ -73,7 +73,7 @@ class CrearVoluntario extends Component {
             elegalizacion: "0", docidentidad: null, docssocial: null, docpasaporte: null,
             docsviaje: null, dochvida: null, doccmotivacion: null, docdvoluntades: null,
             docuimagen: null, convenio: "0", tipo: "0", modalidad: "0", finicio: new Date(), ffinal: new Date(),
-            ffinalc: false, ocupacion:""
+            ffinalc: false, ocupacion:"", observaciones:""
         });
 
     }
@@ -127,7 +127,12 @@ class CrearVoluntario extends Component {
 
         if (this.state.elegalizacion == "0") {
             good = false;
-            mnuevo.push({ valor: "Debe seleccionar el estado de legalizacion" });
+            mnuevo.push({ valor: "Debe escribir las observaciones" });
+        }
+
+        if (this.state.observaciones.toString().length <= 0) {
+            good = false;
+            mnuevo.push({ valor: "Debe escribir la ocupacion" });
         }
 
         if (this.state.convenio == "0") {
@@ -264,6 +269,13 @@ class CrearVoluntario extends Component {
                                         ))
                                     }
                                 </Form.Select>
+                            </Col>
+                        </Form.Group>
+
+                        <Form.Group as={Row} className="grupo" controlId="correo">
+                            <Form.Label column sm="2" >Observaciones</Form.Label>
+                            <Col sm="10">
+                                <Form.Control type="email" placeholder="Escriba las observaciones" value={this.state.observaciones} onChange={(value) => this.setState({ observaciones: value.target.value })}></Form.Control>
                             </Col>
                         </Form.Group>
                     </div>

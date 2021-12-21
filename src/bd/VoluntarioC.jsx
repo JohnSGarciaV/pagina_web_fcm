@@ -48,6 +48,7 @@ class VoluntarioBD extends Component {
                             <th>Correo</th>
                             <th>Rango</th>
                             <th> Estado Legalizacion </th>
+                            <th>Observaciones</th>
                             <th>Acciones </th>
                         </tr>
                     </thead>
@@ -64,6 +65,7 @@ class VoluntarioBD extends Component {
                                     <td>{elemento.correo}</td>
                                     <td>{elemento.rango}</td>
                                     <td>{elemento.elegalizacion} </td>
+                                    <td>{elemento.observaciones}</td>
                                     <td>
                                         <Link to={{pathname:`/editarVoluntario/${elemento._id}`, state:{ndoc:elemento.ndoc}}}><button type="button" class="btn btn-primary"> Editar </button></Link>
                                         <Link to={{pathname:`/InformacionVoluntario/${elemento.ndoc}`, state:{ndoc:elemento.ndoc}}}>     
