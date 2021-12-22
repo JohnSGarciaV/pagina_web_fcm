@@ -160,6 +160,7 @@ const EditarActividadVoluntariado = () => {
 
     return (
         <div>
+            <h4>Editar Actividad de Voluntariado </h4>
             <div>
                 <Modal show={show} onHide={modalClose}>
                     <Modal.Header>

@@ -24,7 +24,7 @@ const Sidebar = () => {
                             <div class="list-group">
                                 <li><a href="/Voluntarios" class="d-block" className="sletras"> Lista de Voluntarios</a></li>
                                 <li><a href="/crearVoluntario" class="d-block" className="sletras"> Crear Voluntario</a></li>
-                                <li><a href="#" class="d-block" className="sletras"> Crear Grupo de Voluntarios</a></li>
+                                <li><a href="/creargrupo" class="d-block" className="sletras"> Crear Grupo de Voluntarios</a></li>
                             </div>
                         </div>
                     </li>

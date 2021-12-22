@@ -119,6 +119,7 @@ const CrearActividadVoluntariado = () => {
 
     return (
         <div>
+            <h4> Crear Actividad de Formación</h4>
             <div>
                 <Modal show={show} onHide={modalClose}>
                     <Modal.Header>

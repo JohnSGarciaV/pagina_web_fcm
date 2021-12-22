@@ -147,8 +147,7 @@ class InformacionVoluntario extends Component {
                             </div>*/}
 
                 <div style={{ padding: 20 }}>
-                    <h5>Actividades de Voluntariado en las que ha participado</h5>
-                    <TablaActividades />
+                    <TablaActividades  id={this.state._id}/>
                 </div>
 
                 <div style={{ padding: 20 }}>

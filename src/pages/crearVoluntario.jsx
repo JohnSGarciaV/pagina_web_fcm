@@ -158,6 +158,8 @@ class CrearVoluntario extends Component {
     render() {
         return (
             <div className="fomularioCreacion">
+                <h4>Creación de Voluntario </h4>
+
                 <div>
                     <Modal show={this.state.show} onHide={this.cerrar}>
                         <Modal.Header>
