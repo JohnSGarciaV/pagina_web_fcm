@@ -68,6 +68,7 @@ const TablaActividadesFormacion = () => {
 
         await axios.request(options).then((response) => {
             setActividades(response.data);
+            console.log(response.data);
         }).catch(function (error) {
             console.error(error);
         });

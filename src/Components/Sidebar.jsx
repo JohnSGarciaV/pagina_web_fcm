@@ -38,8 +38,6 @@ const Sidebar = () => {
                             <div class="list-group">
                                 <li><a href="/actividadesformacion" class="d-block" className="sletras">Actividades de Formación</a></li>
                                 <li><a href="/actividadesvoluntariado" class="d-block" className="sletras">Actividades de Voluntariado</a></li>
-                                <li><a href="/crearavoluntariado" class="d-block" className="sletras"> Crear Actividad de Voluntariado</a></li>
-                                <li><a href="/crearaformativa" class="d-block" className="sletras"> Crear Actividad Formativa </a></li>
                             </div>
                         </div>
 

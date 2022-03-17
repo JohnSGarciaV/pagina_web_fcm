@@ -5,8 +5,7 @@ import '../../styles/styletable.css';
 import ViewPDF from '../viewPDF';
 import axios from 'axios';
 
-const data = [{ nactividad: " Construccion", tipo: "Misional", rol: "Lider de cuadrilla", fecha: "12/01/202", tiempo: "12", id: "" }]
-const datas = [{ nactividadf: " Construccion", tipof: "Acciones de aspiracion", fechaf: "12/01/202", tiempof: "12" }]
+
 const datav = [{ convenio: "Univerisdad", tipo: "Voluntariado", modalidad: "Mixto", finicio: "01/01/2019", ffinal: " ", estado: "Activo" }]
 
 
@@ -51,38 +50,36 @@ class TablaInfoAdicional extends Component {
 const TablaActividades = ({ id }) => {
     const [actividades, setActividades] = useState([]);
     const [suma, setSuma] = useState(0);
-    const [nombre, setNombre] = useState("");
 
     const sumar = () => {
         var sum = 0;
         actividades.map((elemento) =>
-            sum = Number(sum) + Number(elemento.horas)
+            sum = Number(sum) + Number(parseInt(elemento.horas))
         );
         setSuma(sum);
     }
 
-    const buscar = async () => {
-        const options = {
-            method: 'GET',
-            url: `https://secure-earth-28511.herokuapp.com/actividadv/voluntario/${id}`,
-        };
-
-        await axios.request(options).then((response) => {
-            setActividades(response.data);
-            setNombre("Actividades de Voluntariado en las que ha participado");
-        }).catch(function (error) {
-            console.error(error);
-        });
-    }
-
-    useEffect(async () => {
+    useEffect(() => {
+        const buscar = async () => {
+            const options = {
+                method: 'GET',
+                url: `https://secure-earth-28511.herokuapp.com/actividadv/voluntario/${id}`,
+            };
+    
+            await axios.request(options).then((response) => {
+                setActividades(response.data);
+                console.log("Hola");
+            }).catch(function (error) {
+                console.log(error.toString());
+            });
+        }
         buscar();
         sumar();
-    }, []);
+    },[]);
 
 return (
     <Container maxWidth="sm">
-        <h5>{nombre}</h5>
+        <h5>Actividades de Voluntariado</h5>
         <Table hover size="sm" bordered="true">
             <thead>
                 <tr>
@@ -104,7 +101,7 @@ return (
                     actividades.map((elemento) => (
                         <tr>
                             <td>{elemento.proyecto}</td>
-                            <td>{elemento.tipo}</td>
+                            <td>{elemento.proyecto}</td>
                             <td>{elemento.participantes.find(elemento => elemento.id === id).rol}</td>
                             <td>{elemento.fecha}</td>
                             <td>{elemento.horas}</td>
@@ -119,6 +116,72 @@ return (
 );
 }
 
+const TablaAFormacion = ({id}) => {
+    const [actividades, setActividades] = useState([]);
+    const [suma, setSuma] = useState(0);
+
+    const sumar = () => {
+        var sum = 0;
+        actividades.map((elemento) =>
+            sum = Number(sum) + Number(parseInt(elemento.horas))
+        );
+        setSuma(sum);
+    }
+
+    useEffect(() => {
+        const buscar = async () => {
+            const options = {
+                method: 'GET',
+                url: `https://secure-earth-28511.herokuapp.com/actividadf/voluntario/${id}`,
+            };
+    
+            await axios.request(options).then((response) => {
+                setActividades(response.data);
+                console.log('HOLA');
+                console.log(id);
+                console.log(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+        buscar();
+        sumar();
+    }, []);
+
+        return (
+            <Container maxWidth="sm">
+                <h5>Actividades de Formación en las que ha participado</h5>
+                <Table hover size="sm" bordered="true">
+                    <thead>
+                        <tr>
+                            <th>NOMBRE DE LA ACTIVIDAD</th>
+                            <th>TIPO</th>
+                            <th>FECHA</th>
+                            <th>HORAS</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <td colSpan="3">Total de Horas</td>
+                            <td>{suma}</td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {
+                            actividades.map((elemento) => (
+                                <tr>
+                                    <td>{elemento.nombre}</td>
+                                    <td>{elemento.proyecto}</td>
+                                    <td>{elemento.fecha}</td>
+                                    <td>{elemento.horas}</td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </Table>
+            </Container>
+        );
+}
 
 
 const TablaDocumentos = () => {
@@ -177,52 +240,6 @@ const TablaDocumentos = () => {
     );
 }
 
-
-
-
-
-class TablaAFormacion extends Component {
-    state = {
-        data: datas
-    }
-
-    render() {
-        return (
-            <Container>
-                <Table hover size="sm" bordered="true">
-                    <thead>
-                        <tr>
-                            <th>NOMBRE DE LA ACTIVIDAD</th>
-                            <th>TIPO</th>
-                            <th>FECHA</th>
-                            <th>HORAS</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <td colSpan="3">Total de Horas</td>
-                            <td>150</td>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        {
-                            this.state.data.map((elemento) => (
-                                <tr>
-                                    <td>{elemento.nactividadf}</td>
-                                    <td>{elemento.tipof}</td>
-                                    <td>{elemento.fechaf}</td>
-                                    <td>{elemento.tiempof}</td>
-
-                                </tr>
-                            ))
-                        }
-                    </tbody>
-
-                </Table>
-            </Container>
-        );
-    }
-}
 
 export {
     TablaAFormacion,

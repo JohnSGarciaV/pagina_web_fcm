@@ -17,6 +17,7 @@ import EditarActividadFormacion from './pages/editarActividadFormacion';
 import VerActividadFormacion from './pages/verActividadFormacion';
 import VerActividadVoluntariado from './pages/verActividadVoluntariado';
 import CrearGrupoAspirantes from './pages/crearGrupo';
+import Certificado from './pages/Cetificado';
 
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
               </LayoutInicio>
             </Route>
 
-            <Route path={['/Voluntarios', '/InformacionVoluntario/:ndoc', '/crearVoluntario', '/editarVoluntario/:ndoc', '/actividadesvoluntariado', '/actividadesformacion', '/crearavoluntariado', '/crearaformativa', '/editaravoluntariado/:id', '/editaraformacion/:id', '/veravoluntariado/:id', '/veraformacion/:id', '/creargrupo']} exact>
+            <Route path={['/Voluntarios', '/InformacionVoluntario/:ndoc', '/crearVoluntario', '/editarVoluntario/:ndoc', '/actividadesvoluntariado', '/actividadesformacion', '/crearavoluntariado', '/crearaformativa', '/editaravoluntariado/:id', '/editaraformacion/:id', '/veravoluntariado/:id', '/veraformacion/:id', '/creargrupo', '/certificado']} exact>
               <Layout>
                 <Switch>
 
@@ -86,6 +87,10 @@ function App() {
 
                   <Route path='/veraformacion/:id' component={VerActividadFormacion} exact>
                     <VerActividadFormacion />
+                  </Route>
+
+                  <Route path='/certificado/' component={Certificado} exact>
+                    <Certificado />
                   </Route>
 
                 </Switch>

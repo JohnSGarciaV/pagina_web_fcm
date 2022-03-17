@@ -4,8 +4,7 @@ import { Table, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ViewPDF from '../Components/viewPDF';
 import axios from 'axios';
-import { TablaActividades } from '../Components/Voluntarios/tvoluntario';
-import { TablaAFormacion } from '../Components/Voluntarios/tvoluntario';
+import { TablaActividades, TablaAFormacion } from '../Components/Voluntarios/tvoluntario';
 import { TablaDocumentos } from '../Components/Voluntarios/tvoluntario';
 
 
@@ -32,9 +31,7 @@ class InformacionVoluntario extends Component {
             };
 
             await axios.request(options).then((response) => {
-                console.log(response.data);
-
-                this.setState(response.data)
+                this.setState(response.data);
             }).catch(function (error) {
                 console.error(error);
             });
@@ -147,12 +144,11 @@ class InformacionVoluntario extends Component {
                             </div>*/}
 
                 <div style={{ padding: 20 }}>
-                    <TablaActividades  id={this.state._id}/>
+                    <TablaActividades  id={this.state._id} key="TAValue"/>
                 </div>
 
                 <div style={{ padding: 20 }}>
-                    <h5>Actividades de Formación en las que ha participado</h5>
-                    <TablaAFormacion />
+                    <TablaAFormacion id={this.state._id}/>
                 </div>
             </div>
         );
