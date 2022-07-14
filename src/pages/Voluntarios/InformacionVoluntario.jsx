@@ -2,41 +2,37 @@ import React, { Component, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import ViewPDF from '../Components/viewPDF';
+import ViewPDF from '../../Components/viewPDF';
 import axios from 'axios';
-import { TablaActividades, TablaAFormacion } from '../Components/Voluntarios/tvoluntario';
-import { TablaDocumentos } from '../Components/Voluntarios/tvoluntario';
+import { TablaActividades, TablaAFormacion } from '../../Components/Voluntarios/tvoluntario';
+import { TablaDocumentos } from '../../Components/Voluntarios/tvoluntario';
+import { buscarVoluntario } from '../../ConexionBD/Voluntarios';
 
 
 class InformacionVoluntario extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            _id:"",
+            _id: "",
             nombre: "", nacionalidad: "",
             tdocumento: " ", ndoc: "", ncelular: "", correo: "", rango: " ",
             elegalizacion: " ", docidentidad: null, docssocial: null, docpasaporte: null,
             docsviaje: null, dochvida: null, doccmotivacion: null, docdvoluntades: null,
             docuimagen: null, convenio: " ", tipo: " ", modalidad: " ", finicio: new Date(), ffinal: new Date(),
-            ffinalc: false
+            ffinalc: false, urls:{}
         }
     }
 
     componentDidMount() {
-
-        const buscarVoluntario = async () => {
-            const options = {
-                method: 'GET',
-                url: `https://secure-earth-28511.herokuapp.com/voluntario/${this.props.location.state.ndoc}`
-            };
-
-            await axios.request(options).then((response) => {
+        buscarVoluntario(this.props.location.state.ndoc).then(
+            response => {
                 this.setState(response.data);
-            }).catch(function (error) {
-                console.error(error);
-            });
-        };
-        buscarVoluntario();
+                console.log(response.data)
+                this.state.urls ={}
+                this.setState({urls:{docidentidad:response.data.urldocidentidad, docssocial: response.data.urldocssocial, docpasaporte:response.data.urldocpasaporte, docsviaje:response.data.urldocsviaje,
+                    dochvida: response.data.urldochvida, doccmotivacion: response.data.urldoccmotivacion, docvoluntades: response.data.urldocdvoluntades, doucuimagen: response.data.urldocuimagen}})
+            }
+        )
     }
 
     render() {
@@ -51,7 +47,7 @@ class InformacionVoluntario extends Component {
                                     <th>NACIONALIDAD</th>
                                     <th>TIPO DE DOCUMENTO</th>
                                     <th>NUMERO DE DOCUMENTO</th>
-                                    <th>CECULAR</th>
+                                    <th>CELULAR</th>
                                     <th>CORREO</th>
                                     <th>RANGO</th>
                                     <th>ESTADO DE LEGALIZACIÓN </th>
@@ -73,7 +69,7 @@ class InformacionVoluntario extends Component {
                                     <td>{this.state.observaciones} </td>
                                     <td>
 
-                                        <Link to={{pathname:`/editarVoluntario/${this.state._id}`, state:{ndoc:this.state.ndoc}}}><button type="button" class="btn btn-primary"> Editar </button></Link>
+                                        <Link to={{ pathname: `/editarVoluntario/${this.state._id}`, state: { ndoc: this.state.ndoc } }}><button type="button" class="btn btn-primary"> Editar </button></Link>
                                     </td>
                                 </tr>
                             </tbody>
@@ -109,7 +105,7 @@ class InformacionVoluntario extends Component {
 
                 <div style={{ padding: 20 }}>
                     <h5>Documentos</h5>
-                    <TablaDocumentos />
+                    <TablaDocumentos urls={this.state.urls}/>
                 </div>
 
                 {/*<div style={{ padding: 20 }}>
@@ -144,11 +140,11 @@ class InformacionVoluntario extends Component {
                             </div>*/}
 
                 <div style={{ padding: 20 }}>
-                    <TablaActividades  id={this.state._id} key="TAValue"/>
+                    <TablaActividades id={this.state._id} key="TAValue" />
                 </div>
 
                 <div style={{ padding: 20 }}>
-                    <TablaAFormacion id={this.state._id}/>
+                    <TablaAFormacion id={this.state._id} />
                 </div>
             </div>
         );

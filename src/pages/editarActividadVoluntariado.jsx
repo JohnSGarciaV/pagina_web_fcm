@@ -57,7 +57,7 @@ const EditarActividadVoluntariado = () => {
         setTitulo("Error");
         var good=true;
         var mnuevo=[];
-        if(proyecto == "0"){
+        if(proyecto === "0"){
             good=false;
             mnuevo.push({valor:"Debe seleccionar un proyecto"});
         }
@@ -77,7 +77,7 @@ const EditarActividadVoluntariado = () => {
             mnuevo.push({valor:"El numero de horas debe ser mayor a 0"});
         }
 
-        if(estado == "0"){
+        if(estado === "0"){
             good=false;
             mnuevo.push({valor:"Debe seleccionar un estado"});
         }

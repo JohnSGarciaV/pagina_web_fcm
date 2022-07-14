@@ -1,6 +1,6 @@
 .grupo{
     padding: 1rem 20rem;
-    overflow: hidden;
+    flex: auto
 }
 
 .formulario{

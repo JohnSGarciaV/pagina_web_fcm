@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
-import VoluntarioBD from '../../bd/VoluntarioC';
+import VoluntarioBD from '../Tables/VoluntariosGeneral';
 
 
 

@@ -52,7 +52,7 @@ const EditarActividadFormacion = () => {
         setTitulo("Error");
         var good=true;
         var mnuevo=[];
-        if(proyecto == "0"){
+        if(proyecto === "0"){
             good=false;
             mnuevo.push({valor:"Debe seleccionar un proyecto"});
         }

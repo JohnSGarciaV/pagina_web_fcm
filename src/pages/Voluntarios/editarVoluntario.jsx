@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/stylesv.css'
-import { Form, Col, Row, Modal, ModalTitle } from 'react-bootstrap';
-import { Convenio, paises } from '../information/data';
-import { tipoDocumento } from '../information/data';
+import '../../styles/stylesv.css'
+import { Form, Col, Row, Modal, ModalTitle} from 'react-bootstrap';
+import { Convenio, paises } from '../../information/data';
+import { tipoDocumento } from '../../information/data';
 import { FiChevronDown } from "react-icons/fi"
-import { Rango } from '../information/data';
-import { Tipo } from '../information/data';
-import { estadoLegalizacion } from '../information/data';
-import { Modalidad } from '../information/data';
+import { Rango } from '../../information/data';
+import { Tipo } from '../../information/data';
+import { Modalidad } from '../../information/data';
 import DatePicker from 'react-datepicker';
+import { estadoLegalizacion } from '../../information/data';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 
-class CrearVoluntario extends Component {
-
+class EditarVoluntario extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id:"",
             mensaje: [], titulo: "", show: false, nombre: "", nacionalidad: "0",
             tdocumento: "0", ndoc: "", ncelular: "", correo: "", rango: "0",
             elegalizacion: "0", docidentidad: null, docssocial: null, docpasaporte: null,
@@ -31,22 +31,24 @@ class CrearVoluntario extends Component {
         if (this.state.titulo == "Exitoso") {
             this.limpiar();
         }
-        this.setState({ show: false });
+        
+        
+        
     }
 
     crearVoluntarioBD = async () => {
         if (this.comprobar()) {
             try {
                 const options = {
-                    method: 'POST',
-                    url: 'https://secure-earth-28511.herokuapp.com/voluntarios/new',
+                    method: 'PATCH',
+                    url: 'https://secure-earth-28511.herokuapp.com/voluntarios/edit',
                     headers: { 'Content-Type': 'application/json' },
                     data: this.state,
                 };
 
                 await axios.request(options).then((response) => {
                     this.setState({ titulo: "Exitoso" });
-                    this.setState({ mensaje: [{ valor: "El voluntario fue creado de manera exitosa" }] });
+                    this.setState({ mensaje: [{ valor: "El voluntario fue modificado de manera exitosa" }] });
                     this.setState({ show: true });
                 }).catch(function (error) {
                     this.setState({ titulo: "Error" });
@@ -57,23 +59,22 @@ class CrearVoluntario extends Component {
                 console.log(error);
             }
 
+
         } else {
             this.setState({ show: true });
         }
-
-
     }
 
 
     limpiar = async () => {
 
         this.setState({
-            mensaje: [], titulo: "", show: false, nombre: "", nacionalidad: "0",
+            mensaje: [], titulo: "", show: false, nombre: "", nacionalidad: "0",id:"",ocupacion:"",
             tdocumento: "0", ndoc: "", ncelular: "", correo: "", rango: "0",
             elegalizacion: "0", docidentidad: null, docssocial: null, docpasaporte: null,
             docsviaje: null, dochvida: null, doccmotivacion: null, docdvoluntades: null,
             docuimagen: null, convenio: "0", tipo: "0", modalidad: "0", finicio: new Date(), ffinal: new Date(),
-            ffinalc: false, ocupacion:"", observaciones:""
+            ffinalc: false, observaciones: ""
         });
 
     }
@@ -90,12 +91,12 @@ class CrearVoluntario extends Component {
             mnuevo.push({ valor: "Debe escribir el nombre del voluntario" });
         }
 
-        if (this.state.nacionalidad == "0") {
+        if (this.state.nacionalidad === "0") {
             good = false;
             mnuevo.push({ valor: "Debe seleccionar una nacionalidad" });
         }
 
-        if (this.state.tdocumento == "0") {
+        if (this.state.tdocumento === "0") {
             good = false;
             mnuevo.push({ valor: "Debe seleccionar el tipo de documento de identidad" });
         }
@@ -120,32 +121,32 @@ class CrearVoluntario extends Component {
             mnuevo.push({ valor: "Debe escribir la ocupacion" });
         }
 
-        if (this.state.rango == "0") {
+        if (this.state.rango === "0") {
             good = false;
             mnuevo.push({ valor: "Debe seleccionar el rango" });
         }
 
-        if (this.state.elegalizacion == "0") {
+        if (this.state.elegalizacion === "0") {
+            good = false;
+            mnuevo.push({ valor: "Debe seleccionar el estado de legalizacion" });
+        }
+
+        if (this.state.elegalizacion === "0") {
             good = false;
             mnuevo.push({ valor: "Debe escribir las observaciones" });
         }
 
-        if (this.state.observaciones.toString().length <= 0) {
-            good = false;
-            mnuevo.push({ valor: "Debe escribir la ocupacion" });
-        }
-
-        if (this.state.convenio == "0") {
+        if (this.state.convenio === "0") {
             good = false;
             mnuevo.push({ valor: "Debe seleccionar el tipo de convenio" });
         }
 
-        if (this.state.tipo == "0") {
+        if (this.state.tipo === "0") {
             good = false;
             mnuevo.push({ valor: "Debe seleccionar el tipo de voluntario" });
         }
 
-        if (this.state.modalidad == "0") {
+        if (this.state.modalidad === "0") {
             good = false;
             mnuevo.push({ valor: "Debe seleccionar el tipo de modalidad" });
         }
@@ -154,12 +155,44 @@ class CrearVoluntario extends Component {
         return good;
     };
 
+    componentDidMount() {
+
+        const buscarVoluntario = async () => {
+            const options = {
+                method: 'GET',
+                url: `https://secure-earth-28511.herokuapp.com/voluntario/${this.props.location.state.ndoc}`
+            };
+
+            await axios.request(options).then((response) => {
+                console.log(response.data._id);
+
+                this.setState({nombre:response.data.nombre});
+                this.setState({nacionalidad:response.data.nacionalidad});
+                this.setState({tdocumento:response.data.tdocumento});
+                this.setState({ndoc:response.data.ndoc});
+                this.setState({ncelular:response.data.ncelular});
+                this.setState({correo:response.data.correo});
+                this.setState({rango:response.data.rango});
+                this.setState({elegalizacion:response.data.elegalizacion});
+                this.setState({convenio:response.data.convenio});
+                this.setState({tipo:response.data.tipo});
+                this.setState({modalidad:response.data.modalidad});
+                this.setState({ocupacion:response.data.ocupacion});
+                this.setState({observaciones:response.data.observaciones});
+                this.setState({id:response.data._id});
+                this.setState({finicio: Date.parse(response.data.finicio)});
+                this.setState({ffinal: Date.parse(response.data.ffinal)});
+                this.setState({id: response.data._id});
+            }).catch(function (error) {
+                console.error(error);
+            });
+        };
+        buscarVoluntario();
+    }
 
     render() {
         return (
             <div className="fomularioCreacion">
-                <h4>Creación de Voluntario </h4>
-
                 <div>
                     <Modal show={this.state.show} onHide={this.cerrar}>
                         <Modal.Header>
@@ -226,7 +259,7 @@ class CrearVoluntario extends Component {
                         </Form.Group>
 
                         <Form.Group as={Row} className="grupo" controlId="celular">
-                            <Form.Label column sm="2" >Numero del Celular con WhatsApp</Form.Label>
+                            <Form.Label column sm="2" >Numero del Celular</Form.Label>
                             <Col sm="10">
                                 <Form.Control type="number" placeholder="Escriba el numero de celular" value={this.state.ncelular} onChange={(value) => this.setState({ ncelular: value.target.value })}></Form.Control>
                             </Col>
@@ -239,10 +272,10 @@ class CrearVoluntario extends Component {
                             </Col>
                         </Form.Group>
 
-                        <Form.Group as={Row} className="grupo" controlId="correo">
+                        <Form.Group as={Row} className="grupo" controlId="ocupacion">
                             <Form.Label column sm="2" >Ocupación</Form.Label>
                             <Col sm="10">
-                                <Form.Control type="email" placeholder="Escriba la ocupacion" value={this.state.ocupacion} onChange={(value) => this.setState({ ocupacion: value.target.value })}></Form.Control>
+                                <Form.Control type="text" placeholder="Escriba la ocupacion" value={this.state.ocupacion} onChange={(value) => this.setState({ ocupacion: value.target.value })}></Form.Control>
                             </Col>
                         </Form.Group>
 
@@ -378,7 +411,7 @@ class CrearVoluntario extends Component {
                         <Form.Group as={Row} className="grupo" controlId="numeroDoc">
                             <Form.Label column sm="2">Fecha de Inicio</Form.Label>
                             <Col sm="10">
-                                <DatePicker selected={this.state.finicio} onChange={(date) => this.setState({ finicio: date })} />
+                                <DatePicker selected={new Date()} onChange={(date) => this.setState({ finicio: date })} />
                             </Col>
                         </Form.Group>
 
@@ -387,15 +420,15 @@ class CrearVoluntario extends Component {
 
                             <Col sm="10">
                                 <input class="form-check-input" type="checkbox" value={this.state.ffinalc} id="flexCheckChecked" />
-                                <DatePicker selected={this.state.ffinal} onChange={(date) => this.setState({ ffinal: date })} />
+                                <DatePicker selected={new Date()} onChange={(date) => this.setState({ ffinal: date })} />
                             </Col>
                         </Form.Group>
                     </div>
                 </Form>
-                <button type="button" class="btn btn-success" onClick={this.crearVoluntarioBD}> CREAR VOLUNTARIO</button>
+                <button type="button" class="btn btn-success" onClick={this.crearVoluntarioBD}> EDITAR VOLUNTARIO</button>
             </div>
         );
     }
 }
 
-export default CrearVoluntario;
+export default EditarVoluntario;

@@ -184,10 +184,11 @@ const TablaAFormacion = ({id}) => {
 }
 
 
-const TablaDocumentos = () => {
+const TablaDocumentos = ({urls}) => {
     const [show, setShow] = useState(false);
     const [info, setInfo] = useState({ nombre: "Cualquiera", link: "http://www.africau.edu/images/default/sample.pdf" });
-
+    const [links, setLinks] = useState(urls)
+console.log(links)
     return (
         <Container>
             <Table hover size="sm" bordered="true">
@@ -208,28 +209,28 @@ const TablaDocumentos = () => {
                     {
                         <tr>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Documento de Identidad", link: "http://www.africau.edu/images/default/sample.pdf" }); setShow(true) }} >Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Documento de Identidad", link: links.docidentidad }); setShow(true) }} >Ver</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Seguridad Social", link: "http://www.africau.edu/images/default/sample.pdf" }); setShow(true) }}>Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Seguridad Social", link: links.docssocial }); setShow(true) }}>Ver</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Pasaporte", link: "http://www.africau.edu/images/default/sample.pdf" }); setShow(true) }}>Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Pasaporte", link: links.docpasaporte }); setShow(true) }}>Ver</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Aseguramiento de Viaje", link: "http://www.africau.edu/images/default/sample.pdf" }); setShow(true) }}>Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Aseguramiento de Viaje", link: links.docsviaje }); setShow(true) }}>Ver</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Hoja de Vida", link: "http://www.africau.edu/images/default/sample.pdf" }); setShow(true) }}>Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Hoja de Vida", link: links.dochvida}); setShow(true) }}>Ver</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Carta de Motivacion", link: "http://www.africau.edu/images/default/sample.pdf" }); setShow(true) }}>Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Carta de Motivacion", link: links.doccmotivacion}); setShow(true) }}>Ver</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Declaracion de Voluntades", link: "http://www.africau.edu/images/default/sample.pdf" }); setShow(true) }}>Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Declaracion de Voluntades", link: links.docvoluntades }); setShow(true) }}>Ver</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Uso de Imagen", link: "http://www.africau.edu/images/default/sample.pdf" }); setShow(true) }}>Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Uso de Imagen", link: links.doucuimagen }); setShow(true) }}>Ver</button>
                             </td>
                         </tr>
                     }

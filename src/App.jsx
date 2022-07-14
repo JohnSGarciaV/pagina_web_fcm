@@ -3,10 +3,10 @@ import './App.css';
 import Layout from './layouts/Layout';
 import LayoutInicio from './layouts/LayoutInicio';
 import { BrowserRouter as Router, Switch, Route, BrowserRouter } from 'react-router-dom';
-import Voluntarios from './pages/voluntarios';
-import InformacionVoluntario from './pages/InformacionVoluntario';
-import CrearVoluntario from './pages/crearVoluntario';
-import EditarVoluntario from './pages/editarVoluntario';
+import  TablaVoluntariosGeneral from './Components/Tables/VoluntariosGeneral';
+import InformacionVoluntario from './pages/Voluntarios/InformacionVoluntario';
+import CrearVoluntario from './pages/Voluntarios/crearVoluntario';
+import EditarVoluntario from './pages/Voluntarios/editarVoluntario';
 import ActividadesFormacion from './pages/ActividadesFormacion';
 import ActividadesVoluntariado from './pages/ActividadesVoluntariado';
 import CrearActividadVoluntariado from './pages/crearActividadVoluntariado';
@@ -16,7 +16,7 @@ import EditarActividadVoluntariado from './pages/editarActividadVoluntariado';
 import EditarActividadFormacion from './pages/editarActividadFormacion';
 import VerActividadFormacion from './pages/verActividadFormacion';
 import VerActividadVoluntariado from './pages/verActividadVoluntariado';
-import CrearGrupoAspirantes from './pages/crearGrupo';
+import CrearGrupoAspirantes from './pages/Voluntarios/crearGrupo';
 import Certificado from './pages/Cetificado';
 
 
@@ -40,7 +40,7 @@ function App() {
                 <Switch>
 
                   <Route path='/Voluntarios' exact>
-                    <Voluntarios />
+                    <TablaVoluntariosGeneral />
                   </Route>
 
                   <Route path='/InformacionVoluntario/:ndoc' component={InformacionVoluntario} exact>

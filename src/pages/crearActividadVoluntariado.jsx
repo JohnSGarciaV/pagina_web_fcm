@@ -31,9 +31,9 @@ const CrearActividadVoluntariado = () => {
 
 
     const agregarVoluntario = () => {
-        if (undefined == sparticipantes.find(p => p.ndoc === pseleccionado) && rol != "0") {
+        if (undefined === sparticipantes.find(p => p.ndoc === pseleccionado) && rol !== "0") {
             const par = tparticipantes.find(p => p.ndoc === pseleccionado);
-            if (par != undefined) {
+            if (par !== undefined) {
                 sparticipantes.push(
                     { nombre: par.nombre, ndoc: par.ndoc, rol: rol, id: par._id });
             }
@@ -54,12 +54,12 @@ const CrearActividadVoluntariado = () => {
         setTitulo("Error");
         var good=true;
         var mnuevo=[];
-        if(proyecto == "0"){
+        if(proyecto === "0"){
             good=false;
             mnuevo.push({valor:"Debe seleccionar un proyecto"});
         }
 
-        if(estado == "0"){
+        if(estado === "0"){
             good=false;
             mnuevo.push({valor:"Debe seleccionar un estado"});
         }

@@ -3,7 +3,6 @@ import { Modal, ModalBody, ModalTitle } from 'react-bootstrap';
 
 
 const ViewPDF = ({show, setShow, info}) => {
-    console.log(info);
     return (
         
         <Modal show={show} onHide={() => setShow(false)} size="xl" >
