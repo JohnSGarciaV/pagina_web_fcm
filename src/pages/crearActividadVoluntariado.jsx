@@ -46,7 +46,7 @@ const CrearActividadVoluntariado = () => {
         var i = sparticipantes.indexOf(elemento);
         sparticipantes.splice(i, 1);
         setPSeleccionado(tparticipantes[i].ndoc);
-        ind == 1 ? setInd(2) : setInd(1);
+        ind === 1 ? setInd(2) : setInd(1);
     }
 
     const comprobarCampos = () => {

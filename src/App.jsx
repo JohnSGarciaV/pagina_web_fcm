@@ -3,7 +3,7 @@ import './App.css';
 import Layout from './layouts/Layout';
 import LayoutInicio from './layouts/LayoutInicio';
 import { BrowserRouter as Router, Switch, Route, BrowserRouter } from 'react-router-dom';
-import  TablaVoluntariosGeneral from './Components/Tables/VoluntariosGeneral';
+import TablaVoluntariosGeneral from './Components/Tables/VoluntariosGeneral';
 import InformacionVoluntario from './pages/Voluntarios/InformacionVoluntario';
 import CrearVoluntario from './pages/Voluntarios/crearVoluntario';
 import EditarVoluntario from './pages/Voluntarios/editarVoluntario';
@@ -70,7 +70,8 @@ function App() {
                   </Route>
 
                   <Route path='/creargrupo' exact>
-                    <CrearGrupoAspirantes/>
+                    {//<CrearGrupoAspirantes/>
+                    }
                   </Route>
 
                   <Route path='/editaravoluntariado/:id' component={EditarActividadVoluntariado} exact>
@@ -90,7 +91,8 @@ function App() {
                   </Route>
 
                   <Route path='/certificado/' component={Certificado} exact>
-                    <Certificado />
+                    {//<Certificado />
+                    }
                   </Route>
 
                 </Switch>

@@ -6,13 +6,13 @@ import axios from 'axios';
 const TablaActividadesVoluntariado = () => {
     const [actividades, setActividades] = useState([]);
 
-    useEffect(async () => {
+    useEffect( () => {
         const options = {
             method: 'GET',
             url: 'https://secure-earth-28511.herokuapp.com/actividadesv',
         };
 
-        await axios.request(options).then((response) => {
+        axios.request(options).then((response) => {
             setActividades(response.data);
         }).catch(function (error) {
             console.error(error);

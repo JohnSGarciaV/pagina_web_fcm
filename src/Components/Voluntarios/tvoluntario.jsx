@@ -68,9 +68,8 @@ const TablaActividades = ({ id }) => {
     
             await axios.request(options).then((response) => {
                 setActividades(response.data);
-                console.log("Hola");
             }).catch(function (error) {
-                console.log(error.toString());
+                //console.log(error.toString());
             });
         }
         buscar();
@@ -141,7 +140,7 @@ const TablaAFormacion = ({id}) => {
                 console.log(id);
                 console.log(response.data);
             }).catch(function (error) {
-                console.log(error);
+                //console.log(error);
             });
         }
         buscar();
@@ -188,7 +187,7 @@ const TablaDocumentos = ({urls}) => {
     const [show, setShow] = useState(false);
     const [info, setInfo] = useState({ nombre: "Cualquiera", link: "http://www.africau.edu/images/default/sample.pdf" });
     const [links, setLinks] = useState(urls)
-console.log(links)
+    console.log(urls)
     return (
         <Container>
             <Table hover size="sm" bordered="true">
@@ -207,30 +206,31 @@ console.log(links)
                 </thead>
                 <tbody>
                     {
+                        //
                         <tr>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Documento de Identidad", link: links.docidentidad }); setShow(true) }} >Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { window.open(urls.get("docidentidad")) }}>Ver</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Seguridad Social", link: links.docssocial }); setShow(true) }}>Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { window.open(urls.get("Seguridad Social")) }}>Ver</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Pasaporte", link: links.docpasaporte }); setShow(true) }}>Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { window.open(urls.get("Pasaporte"))}}>Ver</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Aseguramiento de Viaje", link: links.docsviaje }); setShow(true) }}>Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { window.open(urls.get("Aseguramiento de Viaje"))}}>Ver</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Hoja de Vida", link: links.dochvida}); setShow(true) }}>Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { window.open(urls.get("Hoja de Vida")) }}>Ver</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Carta de Motivacion", link: links.doccmotivacion}); setShow(true) }}>Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { window.open(urls.get("Carta de Motivacion"))}}>Ver</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Declaracion de Voluntades", link: links.docvoluntades }); setShow(true) }}>Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { window.open(urls.get("Declaracion de Voluntades")) }}>Ver</button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success" onClick={() => { setInfo({ nombre: "Uso de Imagen", link: links.doucuimagen }); setShow(true) }}>Ver</button>
+                                <button type="button" class="btn btn-success" onClick={() => { window.open(urls.get("Uso de Imagen"))}}>Ver</button>
                             </td>
                         </tr>
                     }

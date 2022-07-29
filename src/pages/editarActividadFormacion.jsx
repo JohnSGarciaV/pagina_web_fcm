@@ -30,9 +30,9 @@ const EditarActividadFormacion = () => {
 
 
     const agregarVoluntario = () => {
-        if (undefined == sparticipantes.find(p => p.ndoc === pseleccionado)) {
+        if (undefined === sparticipantes.find(p => p.ndoc === pseleccionado)) {
             const par = tparticipantes.find(p => p.ndoc === pseleccionado);
-            if (par != undefined) {
+            if (par !== undefined) {
                 sparticipantes.push(
                     { nombre: par.nombre, ndoc: par.ndoc, id: par._id });
             }
@@ -44,7 +44,7 @@ const EditarActividadFormacion = () => {
         var i = sparticipantes.indexOf(elemento);
         sparticipantes.splice(i, 1);
         setPSeleccionado(tparticipantes[i].ndoc);
-        ind == 1 ? setInd(2) : setInd(1);
+        ind === 1 ? setInd(2) : setInd(1);
     }
 
     const comprobarCampos = () => {

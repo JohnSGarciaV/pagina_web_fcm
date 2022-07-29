@@ -42,16 +42,10 @@ class CrearVoluntario extends Component {
     crearVoluntarioBD = () => {
         if (this.comprobar()) {
             crearDocumentosVoluntario(this.state.docidentidad, this.state.docssocial, this.state.docpasaporte, this.state.docsviaje,
-                this.state.dochvida, this.state.doccmotivacion, this.state.docdvoluntades, this.state.docuimagen, this.state.ndoc).then( (resultados) => {
-                    
-                        if (resultados !== "error") {
-                            const resultado = JSON.stringify(resultados)
-                            console.log(resultado)
-                            
-                            this.setState({urldocidentidad: resultado.cedula, urldocssocial: resultado.seguridadsocial, urldocpasaporte: resultado.pasaporte, urldocsviaje: resultado.seguroviaje, 
-                            urldochvida: resultado.hojavida, urldoccmotivacion: resultado.motivacion, urldocdvoluntades: resultado.voluntades, urldocuimagen: resultado.usoimagen });
-                            console.log(this.state)
-        
+                this.state.dochvida, this.state.doccmotivacion, this.state.docdvoluntades, this.state.docuimagen, this.state.nombre).then((resultado) => {
+                        if (resultado !== "error") {
+                            this.setState({urldocidentidad: resultado.get("cedula"), urldocssocial: resultado.get("seguridadsocial"), urldocpasaporte: resultado.get("pasaporte"), urldocsviaje: resultado.get("seguroviaje"), 
+                            urldochvida: resultado.get("hojavida"), urldoccmotivacion: resultado.get("motivacion"), urldocdvoluntades: resultado.get("voluntades"), urldocuimagen: resultado.get("usoimagen") });
                             var voluntario = this.state;
                             delete voluntario.mensaje; delete voluntario.titulo; delete voluntario.show; delete voluntario.docidentidad; delete voluntario.docssocial; delete voluntario.docpasaporte;
                             delete voluntario.docsviaje; delete voluntario.dochvida; delete voluntario.doccmotivacion; delete voluntario.docdvoluntades; delete voluntario.docuimagen;

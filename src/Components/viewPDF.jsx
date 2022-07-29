@@ -13,7 +13,8 @@ const ViewPDF = ({show, setShow, info}) => {
             </Modal.Header>
             
             <ModalBody style={{height:"80vh", paddingLeft:"50px", paddingRight:"50px", margin:"0px"}}>
-                <object data={info.link} type="application/pdf" style={{width: "100%", height:"100%"}}/>
+                {console.log(info.link)}
+                <iframe src={info.link} ></iframe>
             </ModalBody>
         </Modal>
     );

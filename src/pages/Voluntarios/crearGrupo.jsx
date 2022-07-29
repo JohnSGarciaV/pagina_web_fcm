@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Row } from 'react-bootstrap';
 import * as XLSX from 'xlsx';
 
 const CrearGrupoAspirantes = () => {
 
-    const [mensaje, setMensaje] = useState("");
-    const [nombreASrchivo, setNombreArchivo] = useState("");
-    const [datos, setDatos] = useState("");
+   // const [mensaje, setMensaje] = useState("");
+   // const [nombreASrchivo, setNombreArchivo] = useState("");
+   // const [datos, setDatos] = useState("");
 
     const mostarArchivo = async (e) => {
         if (e.target.files.length > 0) {
@@ -22,7 +22,7 @@ const CrearGrupoAspirantes = () => {
 
                     /* Convert array to json*/
                     const dataParse = XLSX.utils.sheet_to_json(ws, { header: 1 });
-                    setDatos(dataParse);
+                    //setDatos(dataParse);
                     console.log(readedData);
                 };
                 reader.readAsBinaryString(f)

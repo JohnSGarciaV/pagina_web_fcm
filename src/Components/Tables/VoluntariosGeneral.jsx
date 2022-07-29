@@ -70,7 +70,9 @@ class TablaVoluntariosGeneral extends Component {
                 return (
                     <div>
                         <div>
-                            <Link to={{ pathname: `/editarVoluntario/${this.state.datos[rowIndex]._id}`, state: { ndoc: this.state.datos[rowIndex].ndoc } }}><button type="button" class="btn btn-primary"> Editar </button></Link>
+                            {//<Link to={{ pathname: `/editarVoluntario/${this.state.datos[rowIndex]._id}`, state: { ndoc: this.state.datos[rowIndex].ndoc } }}></Link>
+                            }
+                            <button type="button" class="btn btn-primary"> Editar </button>
                         </div>
                         <Link to={{ pathname: `/InformacionVoluntario/${this.state.datos[rowIndex].ndoc}`, state: { ndoc: this.state.datos[rowIndex].ndoc } }}><button type="button" class="btn btn-success"> Ver Informacion </button></Link>
 
@@ -95,7 +97,7 @@ class TablaVoluntariosGeneral extends Component {
 
     buscar = () => {
 
-        if (this.state.palabra.length != 0) {
+        if (this.state.palabra.length !== 0) {
             this.setState({
                 busqueda:
                     this.state.datos.filter((elemento) => {
@@ -122,7 +124,7 @@ class TablaVoluntariosGeneral extends Component {
 
     render() {
         return (
-            <div style={{margin: "2rem"}}>
+            <div style={{ margin: "2rem" }}>
                 <div style={{ padding: 20 }}>
                     <h4>Listado de Voluntarios</h4>
                 </div>

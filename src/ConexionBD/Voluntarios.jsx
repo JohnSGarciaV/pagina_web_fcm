@@ -1,6 +1,5 @@
 import axios from "axios";
 
-const delay = ms => new Promise(res => setTimeout(res, ms));
 
 const obtenerTodosVoluntarios = () => {
     return axios
@@ -24,14 +23,14 @@ const crearVoluntario = (voluntario) => {
         .post("voluntarios/new", voluntario);
 }
 
-function crearDocumentoDrive(documento, nombre, carpeta) {
+function crearDocumentoDrive(documento, nombre, NombreCarpeta) {
     return new Promise(function (resolve, reject) {
 
         var reader = new FileReader() //this for convert to Base64 
         reader.readAsDataURL(documento) //start conversion...
         reader.onload = function (e) { //.. once finished..c
             var rawLog = reader.result.split(',')[1]; //extract only thee file data part
-            var dataSend = { dataReq: { data: rawLog, name: nombre, type: documento.type, folder: carpeta }, fname: "uploadFilesToGoogleDrive" }; //preapre info to send to API
+            var dataSend = { dataReq: { data: rawLog, name: nombre, type: documento.type, folder: NombreCarpeta }, fname: "uploadFilesToGoogleDrive" }; //preapre info to send to API
             fetch('https://script.google.com/macros/s/AKfycbzNWiU5nqzb8-_2wKTPXhXAQ-m9HSw5TmF4LCqeIZrS5kyrfwkyVqCAZNK9iigAW-kWJQ/exec', //your AppsScript URL
                 {
                     method: "POST",
@@ -58,11 +57,13 @@ const buscarVoluntario = (id) => {
 }
 
 
-function crearDocumentosVoluntario(Didentidad, DSSocial, DPasaporte, DSViaje, DHV, DMotivacion, DVoluntades, DUsoImagen, NDocumento) {
+function crearDocumentosVoluntario(Didentidad, DSSocial, DPasaporte, DSViaje, DHV, DMotivacion, DVoluntades, DUsoImagen, NombreCarpeta) {
     return new Promise(function (resolve, reject) {
-        var carpeta = NDocumento;
-        var dataSend = { dataReq: { nameFolder: carpeta }, fname: "createFolder" }; //preapre info to send to API
-        var urlsdoc = {}
+        var cantCrear = 0;
+        var cantCreada = 0;
+        var nombre = "";
+        var dataSend = { dataReq: { nameFolder: NombreCarpeta }, fname: "createFolder" }; //preapre info to send to API
+        var urlsdoc = new Map();
         fetch('https://script.google.com/macros/s/AKfycbzNWiU5nqzb8-_2wKTPXhXAQ-m9HSw5TmF4LCqeIZrS5kyrfwkyVqCAZNK9iigAW-kWJQ/exec', //your AppsScript URL
             {
                 method: "POST",
@@ -71,92 +72,112 @@ function crearDocumentosVoluntario(Didentidad, DSSocial, DPasaporte, DSViaje, DH
             .then(res => res.json())
             .then(data => {
                 if (Didentidad !== null) {
-                    var nombre = "DocumentoIdentidad" + NDocumento;
-                    crearDocumentoDrive(Didentidad, nombre, carpeta).then(function (url) {
-                        urlsdoc.cedula = url.url;
+                    cantCrear++
+                    nombre = "DocumentoIdentidad" + NombreCarpeta;
+                    crearDocumentoDrive(Didentidad, nombre, NombreCarpeta).then(function (url) {
+                        urlsdoc.set("cedula", url.url);
+                        cantCreada++
                     });
-
                 } else {
-                    urlsdoc.cedula = "";
+                    urlsdoc.set("cedula", "");
                 }
 
                 if (DSSocial !== null) {
-                    var nombre = "DocumentoSeguridadSocial" + NDocumento;
-                    crearDocumentoDrive(DSSocial, nombre, carpeta).then(function (url) {
-                        urlsdoc.seguridadsocial = url.url;
+                    cantCrear++
+                    nombre = "DocumentoSeguridadSocial" + NombreCarpeta;
+                    crearDocumentoDrive(DSSocial, nombre, NombreCarpeta).then(function (url) {
+                        urlsdoc.set("seguridadsocial", url.url);
+                        cantCreada++
                     }
                     );
                 } else {
-                    urlsdoc.seguridadsocial = "";
+                    urlsdoc.set("seguridadsocial", "");
                 }
 
                 if (DPasaporte !== null) {
-                    var nombre = "DocumentoPasaporte" + NDocumento;
-                    crearDocumentoDrive(DPasaporte, nombre, carpeta).then(function (url) {
-                        urlsdoc.pasaporte = url.url;
+                    cantCrear++
+                    nombre = "DocumentoPasaporte" + NombreCarpeta;
+                    crearDocumentoDrive(DPasaporte, nombre, NombreCarpeta).then(function (url) {
+                        urlsdoc.set("pasaporte", url.url);
+                        cantCreada++
                     }
                     );
                 } else {
-                    urlsdoc.pasaporte = "";
+                    urlsdoc.set("pasaporte", "");
                 }
 
                 if (DSViaje !== null) {
-                    var nombre = "DocumentoSeguroViaje" + NDocumento;
-                    crearDocumentoDrive(DSViaje, nombre, carpeta).then(function (url) {
-                        urlsdoc.seguroviaje = url.url;
+                    cantCrear++
+                    nombre = "DocumentoSeguroViaje" + NombreCarpeta;
+                    crearDocumentoDrive(DSViaje, nombre, NombreCarpeta).then(function (url) {
+                        urlsdoc.set("seguroviaje", url.url);
+                        cantCreada++
                     }
                     );
                 } else {
-                    urlsdoc.seguroviaje = "";
+                    urlsdoc.set("seguroviaje", "");
                 }
 
                 if (DHV !== null) {
-                    var nombre = "DocumentoHojaVida" + NDocumento;
-                    crearDocumentoDrive(DHV, nombre, carpeta).then(function (url) {
-                        urlsdoc.hojavida = url.url;
+                    cantCrear++
+                    nombre = "DocumentoHojaVida" + NombreCarpeta;
+                    crearDocumentoDrive(DHV, nombre, NombreCarpeta).then(function (url) {
+                        urlsdoc.set("hojavida", url.url);
+                        cantCreada++
                     }
                     );
                 } else {
-                    urlsdoc.hojavida = "";
+                    urlsdoc.set("hojavida", "");
                 }
 
                 if (DMotivacion !== null) {
-                    var nombre = "DocumentoMotivacion" + NDocumento;
-                    crearDocumentoDrive(DMotivacion, nombre, carpeta).then(function (url) {
-                        urlsdoc.motivacion = url.url;
+                    cantCrear++
+                    nombre = "DocumentoMotivacion" + NombreCarpeta;
+                    crearDocumentoDrive(DMotivacion, nombre, NombreCarpeta).then(function (url) {
+                        urlsdoc.set("motivacion", url.url);
+                        cantCreada++
                     }
                     );
                 } else {
-                    urlsdoc.motivacion = "";
+                    urlsdoc.set("motivacion", "");
                 }
                 if (DVoluntades !== null) {
-                    var nombre = "DocumentoVoluntades" + NDocumento;
-                    crearDocumentoDrive(DVoluntades, nombre, carpeta).then(function (url) {
-                        urlsdoc.voluntades = url.url;
+                    cantCrear++
+                    nombre = "DocumentoVoluntades" + NombreCarpeta;
+                    crearDocumentoDrive(DVoluntades, nombre, NombreCarpeta).then(function (url) {
+                        urlsdoc.set("voluntades", url.url);
+                        cantCreada++
                     }
                     );
                 } else {
-                    urlsdoc.voluntades = "";
+                    urlsdoc.set("voluntades", "");
                 }
                 if (DUsoImagen !== null) {
-                    var nombre = "DocumentoUsoImagen" + NDocumento;
-                    crearDocumentoDrive(DUsoImagen, nombre, carpeta).then(function (url) {
-                        urlsdoc.usoimagen = url.url;
+                    cantCrear++
+                    nombre = "DocumentoUsoImagen" + NombreCarpeta;
+                    crearDocumentoDrive(DUsoImagen, nombre, NombreCarpeta).then(function (url) {
+                        urlsdoc.set("usoimagen", url.url);
+                        cantCreada++
                     }
                     );
                 } else {
-                    urlsdoc.usoimagen = "";
+                    urlsdoc.set("usoimagen", "");
                 }
 
             }).catch(e => {
-                return "error"
+                reject("error")
             })
 
-        setTimeout(function () {
+    var id = setInterval(() =>{
+        if(cantCrear > 0 && cantCreada === cantCrear){
+            clearInterval(id)
             resolve(urlsdoc)
-        }, 3000);
-    }
-    )
+        }
+    }, 300);
+
+
+            
+    })
 }
 
 export {
